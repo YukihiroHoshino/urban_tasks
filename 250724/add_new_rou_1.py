@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 import numpy as np
 
 #rou_file_path = 'rou_default_atarasii.rou.xml'
-rou_file_path = '250724/exapmle2.rou.xml'
+rou_file_path = '250724/example2.rou.xml'
 
 edg_xml = ET.parse('250724/example_brt_before.edg.xml').getroot()
 

@@ -27,18 +27,26 @@ vTypeを判別
 3. duarouter (任意)
 duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routing-algorithm astar --routing-threads 30 -o out_nodes.xml --ignore-errors true --route-length true --exit-times true --junction-taz true
 適宜ファイル名は変更
+output: out_nodes.xml
 
 4. 不適切なトリップを削除 (任意)
 python3 drop_bad_rou.py
+input: マッチング後のcsv,  duarouterで出力されるxml(tree),  マッチング後のrou
+output: 不明 
 適宜ファイル名は変更
 
 5. rou追加のための準備
 python3 add_new_rou_1.py
 ランダムな出発地・目的地へのトリップを作る
+input: エッジ情報を示したedg.xml
+output: 追加分のrou.xml
 
 6. duarouter
 で作ったrouにduarouterをかけて、経路が存在するものだけを抽出する
+4と同様に実行→output: out_nodes.xmlっぽいやつ
 
 7. 最後
 python3 add_new_rou_2.py
 適切な数を指定してrouを追加する
+input: マッチング後のcsv, マッチング後のrou.xml, duarouterで出力されるxml(tree)
+output: ?
