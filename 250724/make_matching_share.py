@@ -291,12 +291,12 @@ def sample_random_trips(n, trips_df_csv="./trips_df.csv", random_trips_df_csv="r
 
  # 使用例
 #trips_df = pd.read_csv("trips_df_1010.csv")
-trips_df = pd.read_csv("250724/trips.csv")
-edg_file_path = "250724/brt_before.edg.xml"
+trips_df = pd.read_csv("250724/example_input_make_matching.csv")
+edg_file_path = "250724/example_brt_before.edg.xml"
 net_file_path = "250724/example.net.xml"
 rou_file_path = "250724/example.rou.xml"
 #csv_file_path = "./rou_large_1128.csv"
-csv_file_path = "250724/trips2.csv"
+csv_file_path = "250724/example_output_make_matching.csv"
 
 processor = ETCDataProcessor(trips_df, edg_file_path, net_file_path, csv_file_path)
 processor.process(rou_file_path)
