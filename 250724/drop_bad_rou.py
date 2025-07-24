@@ -2,13 +2,13 @@ import pandas
 import xml.etree.ElementTree as ET
 
 #df = pandas.read_csv('trips_df_1010_nodes.csv')
-df = pandas.read_csv('250724/trips.csv')
+df = pandas.read_csv('250724/example_input_make_matching.csv')
 
 #tree = ET.parse('out_nodes.xml')
 tree = ET.parse('250724/out_nodes.xml')
 
 #rou_file_path = 'rou_9days_1209_for_test.rou.xml'
-rou_file_path = '250724/example2.rou.xml'
+rou_file_path = '250724/example_output_dropBadRou.rou.xml'
 
 root = tree.getroot()
 
