@@ -111,7 +111,7 @@ python3 add_new_rou_1.py
 | | ファイル/データ |
 | :--- | :--- |
 | **Input** | ・`filename.net.xml`<br>・`additional_trips.rou.xml` （ステップ5で生成） |
-| **Output**| `additional_out_nodes.xml` （経路探索後の追加トリップ情報）|
+| **Output**| ・`additional_out_nodes.xml` （経路探索後の追加トリップ情報）|
 
 ---
 
@@ -129,4 +129,4 @@ python3 add_new_rou_2.py
 | | ファイル/データ |
 | :--- | :--- |
 | **Input** | ・`filename_matched_csv`（ステップ2で生成したマッチンング後のcsvファイル）<br>・`additional_out_nodes.xml` （ステップ6で生成） |
-| **Output**| `filename_final.rou.xml` （全てのトリップが含まれた最終的なルートファイル）|
+| **Output**| ・`filename_final.rou.xml` （全てのトリップが含まれた最終的なルートファイル）|
