@@ -46,8 +46,8 @@ python3 make_matching_share.py
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・`trips.csv` （ステップ1で生成）<br>・`edg.xml` （道路ネットワークのエッジ情報） |
-| **Output** | ・`rou.xml` （マップマッチング後のルートファイル）<br>・`（入力ファイル名）_matched.csv` （マッチング結果のIDが追加されたCSV） |
+| **Input** | ・`trips.csv` （ステップ1で生成）<br>・`filename.edg.xml` （道路ネットワークのエッジ情報） |
+| **Output** | ・`filename.rou.xml` （マップマッチング後のルートファイル）<br>・`filename_matched.csv` （マッチング結果のエッジ情報が追加されたCSV） |
 
 ---
 
@@ -55,7 +55,7 @@ python3 make_matching_share.py
 
 マップマッチングで得られた出発地・目的地に基づき、SUMOで実際の走行経路を探索させます。
 
-**コマンド:**
+**コマンド例:**
 ```bash
 duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routing-algorithm astar --routing-threads 30 -o out_nodes.xml --ignore-errors true --route-length true --exit-times true --junction-taz true
 ```
@@ -64,8 +64,8 @@ duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routin
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・`net.xml` （ネットワークファイル）<br>・`rou.xml` （ステップ2で生成） |
-| **Output** | `out_nodes.xml` （実際の経路長などの情報が付与されたファイル） |
+| **Input** | ・`filename.net.xml` （ネットワークファイル）<br>・`filename.rou.xml` （ステップ2で生成） |
+| **Output** | ・`out_nodes.xml` （実際の経路長などの情報が付与されたファイル） |
 
 ---
 
@@ -80,8 +80,8 @@ python3 drop_bad_rou.py
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・マッチング後のCSV （ステップ2で生成）<br>・`out_nodes.xml` （ステップ3で生成）<br>・マッチング後の`rou.xml` （ステップ2で生成） |
-| **Output** | `（ファイル名）_dropped.rou.xml` （不適切トリップが削除されたルートファイル）|
+| **Input** | ・`filename_matched_csv`（ステップ2で生成したマッチンング後のcsvファイル）<br>・`out_nodes.xml` （ステップ3で生成）|
+| **Output** | ・`filename_dropped.rou.xml` （不適切トリップが削除されたルートファイル）|
 
 ---
 
@@ -96,8 +96,8 @@ python3 add_new_rou_1.py
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | `edg.xml` （道路ネットワークのエッジ情報） |
-| **Output**| `additional_trips.rou.xml` （追加分のトリップ情報） |
+| **Input** | `filename.edg.xml` （道路ネットワークのエッジ情報） |
+| **Output**| `filename_additional_trips.rou.xml` （追加分のトリップ情報） |
 
 ---
 
@@ -110,7 +110,7 @@ python3 add_new_rou_1.py
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・`net.xml`<br>・`additional_trips.rou.xml` （ステップ5で生成） |
+| **Input** | ・`filename.net.xml`<br>・`additional_trips.rou.xml` （ステップ5で生成） |
 | **Output**| `additional_out_nodes.xml` （経路探索後の追加トリップ情報）|
 
 ---
@@ -128,5 +128,5 @@ python3 add_new_rou_2.py
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・マッチング後のCSV<br>・元の`rou.xml`<br>・`additional_out_nodes.xml` （ステップ6で生成） |
-| **Output**| `final.rou.xml` （全てのトリップが含まれた最終的なルートファイル）|
+| **Input** | ・`filename_matched_csv`（ステップ2で生成したマッチンング後のcsvファイル）<br>・`additional_out_nodes.xml` （ステップ6で生成） |
+| **Output**| `filename_final.rou.xml` （全てのトリップが含まれた最終的なルートファイル）|
