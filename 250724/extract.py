@@ -48,14 +48,14 @@ class ETCDataProcessor:
                         def get_first_last(group):
                             return group.iloc[[0, -1]]
                         
-                        grouped = df.groupby(["運行日", "運行ＩＤ1", "トリップ番号"])
+                        grouped = df.groupby(["運行日", "運行ＩＤ1", "トリップ番号", "自動車の種別"])
                         first_last = grouped.apply(get_first_last).reset_index(drop=True)
                         
                         df_date_list.append(first_last)
                 
         self.df_date = pd.concat(df_date_list)
         self.df_date = self.df_date.reset_index(drop=True)
-        grouped = self.df_date.groupby(["運行日", '運行ＩＤ1', 'トリップ番号'])
+        grouped = self.df_date.groupby(["運行日", '運行ＩＤ1', 'トリップ番号', '自動車の種別'])
         del self.df_date
         rows = []
 
@@ -66,8 +66,9 @@ class ETCDataProcessor:
         
             new_row = {
                 "運行日": name[0],
-                '運行ＩＤ1': name[1],
+                '運行ID1': name[1],
                 'トリップ番号': name[2],
+                '自動車の種別': name[3],
                 'トリップの起点時刻': first_row['GPS時刻'],
                 '起点の道路種別コード': first_row['道路種別コード'],
                 '経度_origin': first_row['経度'],

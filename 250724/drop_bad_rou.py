@@ -2,7 +2,7 @@ import pandas
 import xml.etree.ElementTree as ET
 
 #df = pandas.read_csv('trips_df_1010_nodes.csv')
-df = pandas.read_csv('250724/example_input_make_matching.csv')
+df = pandas.read_csv('250724/example_output_makeMatching.csv')
 
 #tree = ET.parse('out_nodes.xml')
 tree = ET.parse('250724/out_nodes.xml')
@@ -34,7 +34,7 @@ df['route_length'] = route_length
 df_long = df[df['route_length'] > 500]
 
 df_mini = df_long.sample(n=1000000, random_state=0)
-df_mini.to_csv('250724/example2.csv', index=False)
+df_mini.to_csv('250724/example_output_makeMatching.csv', index=False)
 
 rou_root = ET.Element('routes')
 
