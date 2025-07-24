@@ -1,52 +1,132 @@
-# rouの生成方法の共有（改訂版）
-ファイルの場所：https://drive.google.com/drive/u/2/folders/1RL4n9RG5QDTQh-r78zjbPrOh8-7WM4Cx
+# rou生成の手順（改訂版）
 
-┌───────────────┐
-│ nodes.xml     │ ←─┐
-│ edges.xml     │    ├─→ netconvert → net.xml
-│ types.xml     │ ←─┘
+**ファイル保管場所:** [Google Drive](https://drive.google.com/drive/u/2/folders/1RL4n9RG5QDTQh-r78zjbPrOh8-7WM4Cx)
 
-rou.xml → シミュレーション中の車両・ルート情報
+## 用語解説
 
-add.xml → 信号、検出器、停車施設などを追加定義
+* **rou.xml**
+    * シミュレーション中に登場する車両のルート情報を定義するファイル。
+* **add.xml**
+    * 信号、検出器、バス停といった追加の交通施設を定義するファイル。
+* **net.xml**
+    * シミュレーションの土台となる道路ネットワーク全体を定義する中心的なファイル。
+    * `nodes.xml`, `edges.xml`, `types.xml`といったファイルを`netconvert`ツールで変換しても作成可能です。
 
-net.xml（中心） ← その他はこのネットワークに基づく
+---
 
-1. tripの抽出
+## 1. トリップの抽出
+
+ETCデータから車両のトリップ情報（出発地、目的地など）を抽出します。
+
+**コマンド:**
+```bash
 python3 extract.py
-ETCデータのファイルの場所とoutputとなるcsvのファイル名だけ変更する
-ファイルをダウンロードするのは大変だと思うので、既存のデータで良いならtrips.csvの結果を流用すれば良い
+```
+**備考:**
+* スクリプト内のETCデータファイルのパスと、出力したいCSVファイル名を適宜変更してください。
+* 既存の`trips.csv`を流用する場合、この手順は不要です。
 
-2. rouの生成
+| | ファイル/データ |
+| :--- | :--- |
+| **Input** | ETCプローブデータ（元データ） |
+| **Output** | trips.csv（抽出されたトリップ情報） |
+
+---
+
+## 2. マップマッチングとrouファイルの生成
+
+抽出したトリップ情報を、シミュレーションの道路ネットワーク上に割り当て（マップマッチング）、基本的な`rou.xml`ファイルを生成します。
+
+**コマンド:**
+```bash
 python3 make_matching_share.py
-edg.xml上で作ったcsvのファイル名だけ変更する
-input: ETC2.0から抽出したcsv, エッジ情報を示したedg.xml
-output: マッチング結果のrou.xml, csv（入力したcsvにedge_id_origin, edge_id_destination, rou_idが追加）
-vTypeを判別
+```
+**備考:**
+* `vType`（車両タイプ）の判別もこのステップで行います。
 
-3. duarouter (任意)
+| | ファイル/データ |
+| :--- | :--- |
+| **Input** | ・`trips.csv` （ステップ1で生成）<br>・`edg.xml` （道路ネットワークのエッジ情報） |
+| **Output** | ・`rou.xml` （マップマッチング後のルートファイル）<br>・`（入力ファイル名）_matched.csv` （マッチング結果のIDが追加されたCSV） |
+
+---
+
+## 3. duarouterによる経路探索 (任意)
+
+マップマッチングで得られた出発地・目的地に基づき、SUMOで実際の走行経路を探索させます。
+
+**コマンド:**
+```bash
 duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routing-algorithm astar --routing-threads 30 -o out_nodes.xml --ignore-errors true --route-length true --exit-times true --junction-taz true
-適宜ファイル名は変更
-output: out_nodes.xml
+```
+**備考:**
+* `-n`, `-r`, `-o` のファイル名はご自身の環境に合わせて変更してください。
 
-4. 不適切なトリップを削除 (任意)
+| | ファイル/データ |
+| :--- | :--- |
+| **Input** | ・`net.xml` （ネットワークファイル）<br>・`rou.xml` （ステップ2で生成） |
+| **Output** | `out_nodes.xml` （実際の経路長などの情報が付与されたファイル） |
+
+---
+
+## 4. 不適切なトリップの削除 (任意)
+
+短すぎる、または経路探索に失敗したトリップをデータセットから削除し、品質を向上させます。
+
+**コマンド:**
+```bash
 python3 drop_bad_rou.py
-input: マッチング後のcsv,  duarouterで出力されるxml(tree),  マッチング後のrou
-output: 不明 
-適宜ファイル名は変更
+```
 
-5. rou追加のための準備
+| | ファイル/データ |
+| :--- | :--- |
+| **Input** | ・マッチング後のCSV （ステップ2で生成）<br>・`out_nodes.xml` （ステップ3で生成）<br>・マッチング後の`rou.xml` （ステップ2で生成） |
+| **Output** | `（ファイル名）_dropped.rou.xml` （不適切トリップが削除されたルートファイル）|
+
+---
+
+## 5. 追加rouファイルのための準備
+
+シミュレーションに背景交通を追加するため、ランダムな出発地・目的地を持つトリップを新たに生成します。
+
+**コマンド:**
+```bash
 python3 add_new_rou_1.py
-ランダムな出発地・目的地へのトリップを作る
-input: エッジ情報を示したedg.xml
-output: 追加分のrou.xml
+```
 
-6. duarouter
-で作ったrouにduarouterをかけて、経路が存在するものだけを抽出する
-4と同様に実行→output: out_nodes.xmlっぽいやつ
+| | ファイル/データ |
+| :--- | :--- |
+| **Input** | `edg.xml` （道路ネットワークのエッジ情報） |
+| **Output**| `additional_trips.rou.xml` （追加分のトリップ情報） |
 
-7. 最後
+---
+
+## 6. 追加rouファイルの経路探索
+
+ステップ5で生成した追加トリップに対して`duarouter`を実行し、経路が存在するものだけを抽出します。
+
+**コマンド:**
+* ステップ3と同様の`duarouter`コマンドを実行します。入力の`.rou.xml`をステップ5で生成したものに変更してください。
+
+| | ファイル/データ |
+| :--- | :--- |
+| **Input** | ・`net.xml`<br>・`additional_trips.rou.xml` （ステップ5で生成） |
+| **Output**| `additional_out_nodes.xml` （経路探索後の追加トリップ情報）|
+
+---
+
+## 7. 最終的なrouファイルの結合
+
+元のトリップと追加分のトリップを結合し、最終的な`rou.xml`を生成します。
+
+**コマンド:**
+```bash
 python3 add_new_rou_2.py
-適切な数を指定してrouを追加する
-input: マッチング後のcsv, マッチング後のrou.xml, duarouterで出力されるxml(tree)
-output: ?
+```
+**備考:**
+* スクリプト内で、追加したいトリップ数を指定します。
+
+| | ファイル/データ |
+| :--- | :--- |
+| **Input** | ・マッチング後のCSV<br>・元の`rou.xml`<br>・`additional_out_nodes.xml` （ステップ6で生成） |
+| **Output**| `final.rou.xml` （全てのトリップが含まれた最終的なルートファイル）|
