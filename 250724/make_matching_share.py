@@ -211,13 +211,16 @@ class ETCDataProcessor:
         rou_root = ET.Element('routes')
 
         trips_temp = []
+        # ★★★ 変更点1: trips_tempに自動車の種別を追加 ★★★
         for i in range(len(self.trips_df)):
             id_ = self.trips_df['rou_id'].iloc[i]
             from_ = self.trips_df['edge_id_origin'].iloc[i]
             to_ = self.trips_df['edge_id_destination'].iloc[i]
             depart_at_raw_ = str(self.trips_df['トリップの起点時刻'].values[i])
             depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
-            trips_temp.append([id_,from_, to_, depart_at_])
+            # 自動車の種別を取得
+            car_type_ = self.trips_df['自動車の種別'].iloc[i]
+            trips_temp.append([id_, from_, to_, depart_at_, car_type_])
 
 
         trips_temp.sort(key=lambda x: x[3])
@@ -238,7 +241,8 @@ class ETCDataProcessor:
             else:
                 if level and (not elem.tail or not elem.tail.strip()):
                     elem.tail = i
-
+        
+        # ★★★ 変更点2: XML生成時にvType属性を追加 ★★★
         for i, single_demand in enumerate(trips_temp):
             trip = ET.SubElement(rou_root, 'trip')
             trip.set('id', f't_{single_demand[0]}')
@@ -252,6 +256,13 @@ class ETCDataProcessor:
             else:
                 trip.set('to', single_demand[2])
 
+            # 自動車の種別に応じてvTypeを設定
+            car_type = single_demand[4]
+            if car_type in [0, 2, 3, 4]:
+                trip.set('vType', 'small')
+            elif car_type == 1 or car_type >= 5:
+                trip.set('vType', 'large')
+
         rou_tree = ET.ElementTree(rou_root)
 
         with open(rou_file_path, 'w', encoding='utf-8') as file:
@@ -260,7 +271,6 @@ class ETCDataProcessor:
 
     def process(self, rou_file_path):
         self.prepare_matching_candidates()
-        #self.cluster_net_edges_and_junctions()
         self.map_matching()
         self.format_output(rou_file_path)
     
@@ -291,7 +301,7 @@ def sample_random_trips(n, trips_df_csv="./trips_df.csv", random_trips_df_csv="r
 
  # 使用例
 #trips_df = pd.read_csv("trips_df_1010.csv")
-trips_df = pd.read_csv("250724/example_input_makMatching.csv")
+trips_df = pd.read_csv("250724/example_input_makeMatching_carType.csv")
 edg_file_path = "250724/example_brt_before.edg.xml"
 net_file_path = "250724/example.net.xml"
 rou_file_path = "250724/example.rou.xml"

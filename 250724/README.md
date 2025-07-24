@@ -1,6 +1,17 @@
 # rouの生成方法の共有（改訂版）
 ファイルの場所：https://drive.google.com/drive/u/2/folders/1RL4n9RG5QDTQh-r78zjbPrOh8-7WM4Cx
 
+┌───────────────┐
+│ nodes.xml     │ ←─┐
+│ edges.xml     │    ├─→ netconvert → net.xml
+│ types.xml     │ ←─┘
+
+rou.xml → シミュレーション中の車両・ルート情報
+
+add.xml → 信号、検出器、停車施設などを追加定義
+
+net.xml（中心） ← その他はこのネットワークに基づく
+
 1. tripの抽出
 python3 extract.py
 ETCデータのファイルの場所とoutputとなるcsvのファイル名だけ変更する
@@ -8,8 +19,10 @@ ETCデータのファイルの場所とoutputとなるcsvのファイル名だ�
 
 2. rouの生成
 python3 make_matching_share.py
-edg.xmlと上で作ったcsvのファイル名だけ変更する
-outputはマッチング結果のcsvとrou
+edg.xml上で作ったcsvのファイル名だけ変更する
+input: ETC2.0から抽出したcsv, エッジ情報を示したedg.xml
+output: マッチング結果のrou.xml, csv（入力したcsvにedge_id_origin, edge_id_destination, rou_idが追加）
+vTypeを判別
 
 3. duarouter (任意)
 duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routing-algorithm astar --routing-threads 30 -o out_nodes.xml --ignore-errors true --route-length true --exit-times true --junction-taz true
