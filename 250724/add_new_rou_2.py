@@ -2,9 +2,9 @@ import pandas
 import xml.etree.ElementTree as ET
 import numpy as np
 
-df = pandas.read_csv('rou_9days_0106.rou.csv')
+df = pandas.read_csv('250724/example2.rou.csv')
 
-rou_file_path = 'rou_9days_add_16000.rou.xml'
+rou_file_path = '250724/example2.rou.xml'
 
 
 rou_root = ET.Element('routes')

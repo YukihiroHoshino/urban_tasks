@@ -200,7 +200,7 @@ class ETCDataProcessor:
         # tripinfoとETC2.0の比較のためidを振り直すß
         rou_id = []
         for i in range(len(self.trips_df)):
-            rou_id.append(str(self.trips_df['運行日'].iloc[i]) + '_' + str(self.trips_df['運行ＩＤ1'].iloc[i]) + '_' + str(self.trips_df['トリップ番号'].iloc[i]))
+            rou_id.append(str(self.trips_df['運行日'].iloc[i]) + '_' + str(self.trips_df['運行ID1'].iloc[i]) + '_' + str(self.trips_df['トリップ番号'].iloc[i]))
         self.trips_df['rou_id'] = rou_id
 
         # CSVファイルに保存
@@ -291,15 +291,15 @@ def sample_random_trips(n, trips_df_csv="./trips_df.csv", random_trips_df_csv="r
 
  # 使用例
 #trips_df = pd.read_csv("trips_df_1010.csv")
-trips_df = pd.read_csv("rou_9days_1209_mini.csv")
-edg_file_path = "../master.edg.xml"
-net_file_path = "./master_fotResearch.net.xml"
-rou_file_path = "./rou_9days_1209_mini.rou.xml"
+trips_df = pd.read_csv("250724/trips.csv")
+edg_file_path = "250724/brt_before.edg.xml"
+net_file_path = "250724/example.net.xml"
+rou_file_path = "250724/example.rou.xml"
 #csv_file_path = "./rou_large_1128.csv"
-csv_file_path = "./rou_9days_1209_mini.csv"
+csv_file_path = "250724/trips2.csv"
 
 processor = ETCDataProcessor(trips_df, edg_file_path, net_file_path, csv_file_path)
-processor.process_from_csv(rou_file_path)
+processor.process(rou_file_path)
 
 
 # 使用例

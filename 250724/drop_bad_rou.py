@@ -1,11 +1,14 @@
 import pandas
 import xml.etree.ElementTree as ET
 
-df = pandas.read_csv('trips_df_1010_nodes.csv')
+#df = pandas.read_csv('trips_df_1010_nodes.csv')
+df = pandas.read_csv('250724/trips.csv')
 
-tree = ET.parse('out_nodes.xml')
+#tree = ET.parse('out_nodes.xml')
+tree = ET.parse('250724/out_nodes.xml')
 
-rou_file_path = 'rou_9days_1209_for_test.rou.xml'
+#rou_file_path = 'rou_9days_1209_for_test.rou.xml'
+rou_file_path = '250724/example2.rou.xml'
 
 root = tree.getroot()
 
@@ -31,7 +34,7 @@ df['route_length'] = route_length
 df_long = df[df['route_length'] > 500]
 
 df_mini = df_long.sample(n=1000000, random_state=0)
-df_mini.to_csv('rou_9days_1209_mini_for_test.csv', index=False)
+df_mini.to_csv('250724/example2.csv', index=False)
 
 rou_root = ET.Element('routes')
 
