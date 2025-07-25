@@ -11,6 +11,7 @@
 * **net.xml**
     * シミュレーションの土台となる道路ネットワーク全体を定義する中心的なファイル。
     * `nodes.xml`, `edges.xml`, `types.xml`といったファイルを`netconvert`ツールで変換しても作成可能です。
+    * 今回使用される`net.xml`および`edg.xml`：[Google Drive](https://drive.google.com/drive/folders/1pMsTh9wPBD8Ophep2aUdwzGCEwFacNHX?usp=drive_link)
 
 ---
 
