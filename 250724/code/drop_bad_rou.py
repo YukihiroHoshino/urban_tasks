@@ -35,7 +35,8 @@ df['route_length'] = route_length
 
 df_long = df[df['route_length'] > 500]
 
-df_mini = df_long.sample(n=1000000, random_state=0)
+#df_mini = df_long.sample(n=1000000, random_state=0)
+df_mini = df_long.sample(n=10000, random_state=0)
 df_mini.to_csv('250724//data/example_matched.csv', index=False)
 
 rou_root = ET.Element('routes')
