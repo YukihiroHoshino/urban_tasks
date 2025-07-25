@@ -258,10 +258,10 @@ class ETCDataProcessor:
 
             # 自動車の種別に応じてvTypeを設定
             car_type = single_demand[4]
-            if car_type in [0, 2, 3, 4]:
-                trip.set('vType', 'small')
-            elif car_type == 1 or car_type >= 5:
-                trip.set('vType', 'large')
+            if car_type == 1:
+                trip.set('type', 'truck')
+            elif car_type == 0 or car_type >= 2:
+                continue
 
         rou_tree = ET.ElementTree(rou_root)
 
@@ -301,8 +301,8 @@ def sample_random_trips(n, trips_df_csv="./trips_df.csv", random_trips_df_csv="r
 
 # 使用例
 trips_df = pd.read_csv("250724/data/example_trips.csv")
-edg_file_path = "250724/data/example.edg.xml"
-net_file_path = "250724/data/example.net.xml"
+edg_file_path = "250724/data/edge_BRT.edg.xml"
+net_file_path = "250724/data/master_forResearch_fixed_genBRT_truck.net.xml"
 
 rou_file_path = "250724/data/example_matched.rou.xml"
 csv_file_path = "250724/data/example_matched.csv"
