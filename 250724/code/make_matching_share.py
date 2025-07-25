@@ -246,6 +246,14 @@ class ETCDataProcessor:
         for i, single_demand in enumerate(trips_temp):
             trip = ET.SubElement(rou_root, 'trip')
             trip.set('id', f't_{single_demand[0]}')
+
+            # 自動車の種別に応じてvTypeを設定
+            car_type = single_demand[4]
+            if car_type == 1:
+                trip.set('type', 'truck')
+            elif car_type == 0 or car_type >= 2:
+                continue
+            
             trip.set('depart', str(single_demand[3]))
             if single_demand[1][-1] == 'N':
                 trip.set('fromJunction', single_demand[1][:-1])
