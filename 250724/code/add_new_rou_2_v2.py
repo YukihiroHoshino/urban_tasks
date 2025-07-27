@@ -1,6 +1,8 @@
 import pandas
 import xml.etree.ElementTree as ET
 import numpy as np
+
+# 乱数シードを固定し、毎回同じ結果を生成
 np.random.seed(0) 
 
 # --- 入力ファイル ---
@@ -14,7 +16,7 @@ tree_main_trips = ET.parse('250724/data/example_out_nodes.xml')
 tree_additional_trips = ET.parse('250724/data/example_additional_out_nodes.xml')
 
 # --- 出力ファイル ---
-rou_file_path = '250724/data/example_added.rou.xml'
+rou_file_path = '250724/data/example_added_v2.rou.xml'
 
 
 # --- 1. 追加トリップの有効なODペアを学習 ---
@@ -41,7 +43,7 @@ for child in root_additional:
                 if end_edge in key_edges:
                     anywhere_dest[end_edge].append(start_edge)
 
-# --- 2. 元のトリップの経路長を読み込み、フィルタリングとサンプリングを行う ---
+# --- 2. 元のトリップの経路長を読み込み、フィルタリング ---
 root_main = tree_main_trips.getroot()
 dua = {}
 
@@ -62,12 +64,60 @@ for i in range(len(df)):
         route_length_list.append(-1)
 
 df['route_length'] = route_length_list
-df_long = df[df['route_length'] > 500]
+df_long = df[df['route_length'] > 500].copy()
 
-n_samples = min(30000, len(df_long))
-if n_samples < 10000:
-    print(f"警告: 500mを超えるトリップが {len(df_long)} 件しかなかったため、{n_samples} 件のみサンプリングします。")
-df_mini = df_long.sample(n=n_samples, random_state=0)
+# --- 3. 現実の交通量に基づいたサンプリング処理 ---
+
+# 異なる運行日の日数を計算
+num_days = df_long['運行日'].nunique()
+
+if num_days == 0:
+    print("有効なデータが存在しないため、処理を中断します。")
+    exit()
+
+# truckとそれ以外の車両にデータを分割
+df_trucks = df_long[df_long['自動車の種別'] == 1]
+df_normal = df_long[df_long['自動車の種別'] != 1]
+
+# 1日あたりの平均交通量を算出
+num_truck_per_day = int(len(df_trucks) / num_days) if num_days > 0 else 0
+num_normal_per_day = int(len(df_normal) / num_days) if num_days > 0 else 0
+
+print(f"運行日数: {num_days}日")
+print(f"1日あたりのトラックの目標トリップ数: {num_truck_per_day}")
+print(f"1日あたりの普通車の目標トリップ数: {num_normal_per_day}")
+
+
+# 運行ID1を単位としてランダムにサンプリングする関数
+def sample_by_vehicle_id(df_source, target_trip_count):
+    if df_source.empty or target_trip_count == 0:
+        return pandas.DataFrame()
+
+    # 車両IDのリストをシャッフル
+    vehicle_ids = df_source['運行ID1'].unique()
+    np.random.shuffle(vehicle_ids)
+    
+    selected_trips_list = []
+    current_trip_count = 0
+    
+    # 目標数に達するまで車両を追加
+    for v_id in vehicle_ids:
+        vehicle_trips = df_source[df_source['運行ID1'] == v_id]
+        selected_trips_list.append(vehicle_trips)
+        current_trip_count += len(vehicle_trips)
+        if current_trip_count >= target_trip_count:
+            break
+            
+    return pandas.concat(selected_trips_list, ignore_index=True)
+
+# truckとnormalそれぞれでサンプリングを実行
+df_sampled_trucks = sample_by_vehicle_id(df_trucks, num_truck_per_day)
+df_sampled_normal = sample_by_vehicle_id(df_normal, num_normal_per_day)
+
+# 最終的なサンプリング結果を結合
+df_mini = pandas.concat([df_sampled_trucks, df_sampled_normal], ignore_index=True)
+
+print(f"抽出された合計トリップ数: {len(df_mini)} (トラック: {len(df_sampled_trucks)}, 普通車: {len(df_sampled_normal)})")
 
 # --- 4. 元のトリップと追加トリップを結合 ---
 trips_temp = []
@@ -99,11 +149,13 @@ for i, single_demand in enumerate(add_rou_list):
     
     # 追加可能なペア数を事前に確認
     if o_base == "Anywhere":
-        if not anywhere_dest.get(d_base): continue # 有効なペアがなければスキップ
-        num_available = len(anywhere_dest[d_base])
+        valid_pairs = anywhere_dest.get(d_base)
+        if not valid_pairs: continue
+        num_available = len(valid_pairs)
     else: # d_base == "Anywhere"
-        if not anywhere_origin.get(o_base): continue # 有効なペアがなければスキップ
-        num_available = len(anywhere_origin[o_base])
+        valid_pairs = anywhere_origin.get(o_base)
+        if not valid_pairs: continue
+        num_available = len(valid_pairs)
         
     num_to_add = min(single_demand[2], num_available)
 
@@ -111,9 +163,9 @@ for i, single_demand in enumerate(add_rou_list):
         o = o_base
         d = d_base
         if o == "Anywhere":
-            o = anywhere_dest[d][k]
+            o = valid_pairs[k]
         if d == "Anywhere":
-            d = anywhere_origin[o][k]
+            d = valid_pairs[k]
         rand = np.random.randint(18001, 21*3600)
         trips_temp.append([f"add_{i}_{k}", o, d, rand, 0]) # 追加トリップの種別は全て0とする
 
@@ -168,3 +220,5 @@ rou_tree = ET.ElementTree(rou_root)
 with open(rou_file_path, 'w', encoding='utf-8') as file:
     indent(rou_root)
     rou_tree.write(file, encoding='unicode', xml_declaration=True)
+
+print(f"\n処理が完了しました。ファイル '{rou_file_path}' を確認してください。")
