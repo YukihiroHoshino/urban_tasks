@@ -52,7 +52,7 @@ python3 make_matching_share.py
 
 ---
 
-## 3. duarouterによる経路探索 (任意)
+## 3. duarouterによる経路探索
 
 マップマッチングで得られた出発地・目的地に基づき、SUMOで実際の走行経路を探索させます。
 
@@ -70,7 +70,7 @@ duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routin
 
 ---
 
-## 4. 不適切なトリップの削除 (任意)
+## 4. 不適切なトリップの削除
 
 短すぎる、または経路探索に失敗したトリップをデータセットから削除し、品質を向上させます。
 
