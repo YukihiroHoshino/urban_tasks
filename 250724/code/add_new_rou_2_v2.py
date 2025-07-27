@@ -18,6 +18,10 @@ tree_additional_trips = ET.parse('250724/data/example_additional_out_nodes.xml')
 # --- 出力ファイル ---
 rou_file_path = '250724/data/example_added_v2.rou.xml'
 
+# ETC2.0の普及率を書き換え
+ADAPT_RATE_TRUCK = 0.56
+ADAPT_RATE_NORMAL = 0.25
+
 
 # --- 1. 追加トリップの有効なODペアを学習 ---
 anywhere_origin = {}
@@ -80,8 +84,8 @@ df_trucks = df_long[df_long['自動車の種別'] == 1]
 df_normal = df_long[df_long['自動車の種別'] != 1]
 
 # 1日あたりの平均交通量を算出
-num_truck_per_day = int(len(df_trucks) / num_days) if num_days > 0 else 0
-num_normal_per_day = int(len(df_normal) / num_days) if num_days > 0 else 0
+num_truck_per_day = int(len(df_trucks) / num_days / ADAPT_RATE_TRUCK) if num_days > 0 else 0
+num_normal_per_day = int(len(df_normal) / num_days / ADAPT_RATE_NORMAL) if num_days > 0 else 0
 
 print(f"運行日数: {num_days}日")
 print(f"1日あたりのトラックの目標トリップ数: {num_truck_per_day}")
@@ -105,7 +109,6 @@ def sample_by_vehicle_id(df_source, target_trip_count):
         vehicle_trips = df_source[df_source['運行ID1'] == v_id]
         selected_trips_list.append(vehicle_trips)
         current_trip_count += len(vehicle_trips)
-        print(current_trip_count)
         if current_trip_count >= target_trip_count:
             break
             

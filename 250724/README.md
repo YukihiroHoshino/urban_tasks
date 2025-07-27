@@ -66,7 +66,7 @@ duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routin
 | | ファイル/データ |
 | :--- | :--- |
 | **Input** | ・`filename.net.xml` （ネットワークファイル）<br>・`filename.rou.xml` （ステップ2で生成） |
-| **Output** | ・`out_nodes.xml` （実際の経路長などの情報が付与されたファイル） |
+| **Output** | ・`filename_out_nodes.xml` （実際の経路長などの情報が付与されたファイル） |
 
 ---
 
@@ -111,8 +111,8 @@ python3 add_new_rou_1.py
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・`filename.net.xml`<br>・`additional_trips.rou.xml` （ステップ5で生成） |
-| **Output**| ・`additional_out_nodes.xml` （経路探索後の追加トリップ情報）|
+| **Input** | ・`filename.net.xml`<br>・`filename_additional_trips.rou.xml` （ステップ5で生成） |
+| **Output**| ・`filename_additional_out_nodes.xml` （経路探索後の追加トリップ情報）|
 
 ---
 
@@ -122,12 +122,13 @@ python3 add_new_rou_1.py
 
 **コマンド:**
 ```bash
-python3 add_new_rou_2.py
+python3 add_new_rou_2_v2.py
 ```
 **備考:**
 * スクリプト内で、追加したいトリップ数を指定します。
+* _v2を利用すると、普及率を書き換えることで、自動で1日あたりの交通量を計算して出力してくれます。
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・`filename_matched_csv`（ステップ2で生成したマッチンング後のcsvファイル）<br>・`additional_out_nodes.xml` （ステップ6で生成） |
-| **Output**| ・`filename_final.rou.xml` （全てのトリップが含まれた最終的なルートファイル）|
+| **Input** | ・`filename_matched_csv`（ステップ2で生成したマッチンング後のcsvファイル）<br>・`filename_out_nodes.xml` （ステップ3で生成）<br>・`filename_additional_out_nodes.xml` （ステップ6で生成） |
+| **Output**| ・`filename_added_v2.rou.xml` （全てのトリップが含まれた最終的なルートファイル）|
