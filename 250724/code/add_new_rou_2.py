@@ -65,7 +65,7 @@ df['route_length'] = route_length_list
 df_long = df[df['route_length'] > 500]
 
 n_samples = min(30000, len(df_long))
-if n_samples < 10000:
+if n_samples < 30000:
     print(f"警告: 500mを超えるトリップが {len(df_long)} 件しかなかったため、{n_samples} 件のみサンプリングします。")
 df_mini = df_long.sample(n=n_samples, random_state=0)
 

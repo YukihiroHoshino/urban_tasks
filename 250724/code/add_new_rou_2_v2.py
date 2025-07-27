@@ -9,7 +9,7 @@ np.random.seed(0)
 # 元のトリップデータ
 df = pandas.read_csv('250724/data/example_matched.csv')
 
-# 元のトリップの経路長データ
+# 元のトリップの経路学習用データ
 tree_main_trips = ET.parse('250724/data/example_out_nodes.xml')
 
 # 追加トリップの経路学習用データ
@@ -105,6 +105,7 @@ def sample_by_vehicle_id(df_source, target_trip_count):
         vehicle_trips = df_source[df_source['運行ID1'] == v_id]
         selected_trips_list.append(vehicle_trips)
         current_trip_count += len(vehicle_trips)
+        print(current_trip_count)
         if current_trip_count >= target_trip_count:
             break
             
