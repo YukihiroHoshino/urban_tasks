@@ -1,6 +1,6 @@
 # rou生成の手順（改訂版）
 
-**ファイル保管場所:** [Google Drive](https://drive.google.com/drive/u/2/folders/1RL4n9RG5QDTQh-r78zjbPrOh8-7WM4Cx)
+**編集前ファイル保管場所:** [Google Drive](https://drive.google.com/drive/u/2/folders/1RL4n9RG5QDTQh-r78zjbPrOh8-7WM4Cx)
 
 ## 用語解説
 
@@ -30,7 +30,7 @@ python3 extract.py
 | | ファイル/データ |
 | :--- | :--- |
 | **Input** | ETCプローブデータ（元データ） |
-| **Output** | trips.csv（抽出されたトリップ情報） |
+| **Output** | `filename_trips.csv`（抽出されたトリップ情報） |
 
 ---
 
@@ -47,7 +47,7 @@ python3 make_matching_share.py
 
 | | ファイル/データ |
 | :--- | :--- |
-| **Input** | ・`trips.csv` （ステップ1で生成）<br>・`filename.edg.xml` （道路ネットワークのエッジ情報） |
+| **Input** | ・`filename_trips.csv` （ステップ1で生成）<br>・`filename.edg.xml` （道路ネットワークのエッジ情報） |
 | **Output** | ・`filename.rou.xml` （マップマッチング後のルートファイル）<br>・`filename_matched.csv` （マッチング結果のエッジ情報が追加されたCSV） |
 
 ---
