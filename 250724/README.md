@@ -76,13 +76,15 @@ duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routin
 
 **コマンド:**
 ```bash
-python3 drop_bad_rou.py
+python3 drop_bad_rou_v2.py
 ```
+**備考:**
+* _v2を利用すると、普及率を書き換えることで、自動で1日あたりの交通量を計算して出力してくれます。
 
 | | ファイル/データ |
 | :--- | :--- |
 | **Input** | ・`filename_matched_csv`（ステップ2で生成したマッチンング後のcsvファイル）<br>・`out_nodes.xml` （ステップ3で生成）|
-| **Output** | ・`filename_dropped.rou.xml` （不適切トリップが削除されたルートファイル）|
+| **Output** | ・`filename_dropped_v2.rou.xml` （不適切トリップが削除されたルートファイル）|
 
 ---
 
@@ -125,7 +127,7 @@ python3 add_new_rou_1.py
 python3 add_new_rou_2_v2.py
 ```
 **備考:**
-* スクリプト内で、追加したいトリップ数を指定します。
+* _v1ではスクリプト内で、追加したいトリップ数を指定します。
 * _v2を利用すると、普及率を書き換えることで、自動で1日あたりの交通量を計算して出力してくれます。
 
 | | ファイル/データ |
