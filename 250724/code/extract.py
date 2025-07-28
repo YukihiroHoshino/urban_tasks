@@ -29,9 +29,11 @@ class ETCDataProcessor:
             for area in tqdm(self.areas, desc="Processing areas"):
                 print(f"Processing area: {area}")
                 if area in [543907, 533977, 533967, 533957]:
-                    filename = f"./../{month}0/OUT1-2_{area}_{date}.zip"
+                    #filename = f"250724/data/{month}0/OUT1-2_{area}_{date}.zip"
+                    filename = f"250724/data/OUT1-2_{area}_{date}.zip"
                 else:
-                    filename = f"./../{month}/OUT1-2_{area}_{date}.zip"
+                    #filename = f"250724/data/{month}/OUT1-2_{area}_{date}.zip"
+                    filename = f"250724/data/OUT1-2_{area}_{date}.zip"
                 
                 if os.path.exists(filename):
                     with tempfile.TemporaryDirectory() as tmpdir:
@@ -52,6 +54,8 @@ class ETCDataProcessor:
                         first_last = grouped.apply(get_first_last).reset_index(drop=True)
                         
                         df_date_list.append(first_last)
+                else:
+                    print(f"File not found: {filename}")
                 
         self.df_date = pd.concat(df_date_list)
         self.df_date = self.df_date.reset_index(drop=True)
@@ -82,19 +86,25 @@ class ETCDataProcessor:
         self.df_date = pd.DataFrame(rows)
 
 
-    def save_result(self, filename="trips_df_1010_.csv"):
+    def save_result(self, filename="250724/data/example_trips_v2.csv"):
         self.df_date.to_csv(filename, index=False)
 
     def get_result(self):
         return self.df_date
 
 # 使用例
-areas = [543907, 533977, 533967, 533957, 543906, 533976, 533966, 533956, 543905, 533975, 533965, 533955]
-dates = [20211003, 20211010, 20211017, 20211024, 20211031, 20211107, 20211114, 20211121, 20211128]
-south = 35.8
-north = 36.0
-east = 139.9
-west = 139.7
+areas = [543907]
+dates = [20230605, 20230606]
+south = 34.0
+north = 37.0
+east = 140.0
+west = 138.0
+#areas = [543907, 533977, 533967, 533957, 543906, 533976, 533966, 533956, 543905, 533975, 533965, 533955]
+#dates = [20211003, 20211010, 20211017, 20211024, 20211031, 20211107, 20211114, 20211121, 20211128]
+#south = 35.8
+#north = 36.0
+#east = 139.9
+#west = 139.7
 
 processor = ETCDataProcessor(areas, dates, south, north, east, west)
 processor.process_data()
