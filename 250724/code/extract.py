@@ -28,12 +28,7 @@ class ETCDataProcessor:
             
             for area in tqdm(self.areas, desc="Processing areas"):
                 print(f"Processing area: {area}")
-                if area in [543907, 533977, 533967, 533957]:
-                    #filename = f"250724/data/{month}0/OUT1-2_{area}_{date}.zip"
-                    filename = f"250724/data/OUT1-2_{area}_{date}.zip"
-                else:
-                    #filename = f"250724/data/{month}/OUT1-2_{area}_{date}.zip"
-                    filename = f"250724/data/OUT1-2_{area}_{date}.zip"
+                filename = f"250724/data/{month}/OUT1-2_{area}_{date}.zip"
                 
                 if os.path.exists(filename):
                     with tempfile.TemporaryDirectory() as tmpdir:
@@ -86,19 +81,21 @@ class ETCDataProcessor:
         self.df_date = pd.DataFrame(rows)
 
 
-    def save_result(self, filename="250724/data/example_trips_v2.csv"):
+    def save_result(self, filename="250724/data/saturday_trips.csv"):
         self.df_date.to_csv(filename, index=False)
 
     def get_result(self):
         return self.df_date
 
 # 使用例
-areas = [543907]
-dates = [20230605, 20230606]
-south = 34.0
-north = 37.0
-east = 140.0
-west = 138.0
+areas = [543914,543915,543916,543904,543905,543906,533974,533975,533976,533964,533965,533966,
+         533967,533954,533955,533956,533957,533944,533945,533946,533947,543917,544010,543907,
+         544000,533977,534070,534060,534050,534040]
+dates = [20211002,20211009,20211016,20211023,20211030,20211106,20211113,20211120,20211127]
+south = 35.7337
+north = 36.1113
+east = 140.0104
+west = 139.5758
 #areas = [543907, 533977, 533967, 533957, 543906, 533976, 533966, 533956, 543905, 533975, 533965, 533955]
 #dates = [20211003, 20211010, 20211017, 20211024, 20211031, 20211107, 20211114, 20211121, 20211128]
 #south = 35.8
