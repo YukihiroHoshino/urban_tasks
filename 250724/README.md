@@ -58,7 +58,7 @@ python3 make_matching_share.py
 
 **コマンド例:**
 ```bash
-duarouter -n master_fotResearch.net.xml -r rou_9days_1208_nodes.rou.xml --routing-algorithm astar --routing-threads 30 -o out_nodes.xml --ignore-errors true --route-length true --exit-times true --junction-taz true
+duarouter -n filename.net.xml -r filename_matched.rou.xml --routing-algorithm astar --routing-threads 30 -o filename_out_nodes.xml --ignore-errors true --route-length true --exit-times true --junction-taz true
 ```
 **備考:**
 * `-n`, `-r`, `-o` のファイル名はご自身の環境に合わせて変更してください。
