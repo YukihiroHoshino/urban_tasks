@@ -7,23 +7,23 @@ import copy
 
 # --- ★★★ 設定項目 ★★★ ---
 # 生成したいシナリオの番号を1から7の間で指定してください
-SCENARIO_ID = 2
+SCENARIO_ID = 1
 # --------------------------
 
 # --- 入力ファイル ---
-BASE_CSV_PATH = '250724/data/example_matched.csv'
-BASE_OUT_NODES_PATH = '250724/data/example_out_nodes.xml'
+BASE_CSV_PATH = '250724/data/sunday_matched.csv'
+BASE_OUT_NODES_PATH = '250724/data/sunday_out_nodes.xml'
 # duarouterで検証済みの経路プールファイルを指定
 VALIDATED_POOL_PATH = '250724/data/example_additional_out_nodes.xml' # 事前に生成したプールを指定
 
 # --- 出力ファイル ---
-FINAL_ROU_FILE_PATH = f'250724/data/example_added_v2_scenario_{SCENARIO_ID}.rou.xml'
+FINAL_ROU_FILE_PATH = f'250724/data/sunday_added_v2_scenario_{SCENARIO_ID}.rou.xml'
 
 # --- 固定パラメータ ---
 ADAPT_RATE_TRUCK = 0.85
 ADAPT_RATE_NORMAL = 0.30
 # 乱数シードを固定して、毎回同じサンプリング結果を得る
-np.random.seed(42)
+np.random.seed(0)
 
 # --- シナリオごとの追加トリップ定義 ---
 # (リスト定義は長いので省略)
