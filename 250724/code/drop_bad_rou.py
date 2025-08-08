@@ -42,12 +42,12 @@ df_mini = df_long.sample(n=10000, random_state=0)
 rou_root = ET.Element('routes')
 
 trips_temp = []
-# ★★★ 変更点1: 「自動車の種別」もリストに追加 ★★★
+# ★★★ 変更点1: 「自動車の用途」もリストに追加 ★★★
 for i in range(len(df_mini)):
     id_ = df_mini['rou_id'].iloc[i]
     from_ = df_mini['edge_id_origin'].iloc[i]
     to_ = df_mini['edge_id_destination'].iloc[i]
-    car_type_ = df_mini['自動車の用途'].iloc[i] # 自動車の種別を取得
+    car_type_ = df_mini['自動車の用途'].iloc[i] # 自動車の用途を取得
     depart_at_raw_ = str(df_mini['トリップの起点時刻'].values[i])
     depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
     trips_temp.append([id_, from_, to_, depart_at_, car_type_])
@@ -71,12 +71,12 @@ def indent(elem, level=0):
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
 
-# ★★★ 変更点2: XML生成時に自動車の種別を判定 ★★★
+# ★★★ 変更点2: XML生成時に自動車の用途を判定 ★★★
 for i, single_demand in enumerate(trips_temp):
     trip = ET.SubElement(rou_root, 'trip')
     trip.set('id', f't_{single_demand[0]}')
     
-    # 自動車の種別（single_demand[4]）が1の場合、type="truck" を追加
+    # 自動車の用途（single_demand[4]）が2の場合、type="truck" を追加
     car_type = single_demand[4]
     if car_type == 2:
         trip.set('type', 'truck')
