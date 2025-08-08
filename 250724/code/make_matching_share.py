@@ -211,15 +211,15 @@ class ETCDataProcessor:
         rou_root = ET.Element('routes')
 
         trips_temp = []
-        # ★★★ 変更点1: trips_tempに自動車の種別を追加 ★★★
+        # ★★★ 変更点1: trips_tempに自動車の用途を追加 ★★★
         for i in range(len(self.trips_df)):
             id_ = self.trips_df['rou_id'].iloc[i]
             from_ = self.trips_df['edge_id_origin'].iloc[i]
             to_ = self.trips_df['edge_id_destination'].iloc[i]
             depart_at_raw_ = str(self.trips_df['トリップの起点時刻'].values[i])
             depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
-            # 自動車の種別を取得
-            car_type_ = self.trips_df['自動車の種別'].iloc[i]
+            # 自動車の用途を取得
+            car_type_ = self.trips_df['自動車の用途'].iloc[i]
             trips_temp.append([id_, from_, to_, depart_at_, car_type_])
 
 
@@ -247,9 +247,9 @@ class ETCDataProcessor:
             trip = ET.SubElement(rou_root, 'trip')
             trip.set('id', f't_{single_demand[0]}')
 
-            # 自動車の種別に応じてvTypeを設定
+            # 自動車の用途に応じてvTypeを設定
             car_type = single_demand[4]
-            if car_type == 1:
+            if car_type == 2:
                 trip.set('type', 'truck')
             
             trip.set('depart', str(single_demand[3]))
@@ -261,13 +261,6 @@ class ETCDataProcessor:
                 trip.set('toJunction', single_demand[2][:-1])
             else:
                 trip.set('to', single_demand[2])
-
-            # 自動車の種別に応じてvTypeを設定
-            car_type = single_demand[4]
-            if car_type == 1:
-                trip.set('type', 'truck')
-            elif car_type == 0 or car_type >= 2:
-                continue
 
         rou_tree = ET.ElementTree(rou_root)
 

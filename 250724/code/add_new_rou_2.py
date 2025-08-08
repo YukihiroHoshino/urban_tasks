@@ -78,7 +78,7 @@ for i in range(len(df_mini)):
     id_ = row['rou_id']
     from_ = row['edge_id_origin']
     to_ = row['edge_id_destination']
-    car_type_ = row['自動車の種別']
+    car_type_ = row['自動車の用途']
     depart_at_raw_ = str(row['トリップの起点時刻'])
     depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
     if 16200 <= depart_at_ < 77400:
@@ -115,7 +115,7 @@ for i, single_demand in enumerate(add_rou_list):
         if d == "Anywhere":
             d = anywhere_origin[o][k]
         rand = np.random.randint(18001, 21*3600)
-        trips_temp.append([f"add_{i}_{k}", o, d, rand, 0]) # 追加トリップの種別は全て0とする
+        trips_temp.append([f"add_{i}_{k}", o, d, rand, 1]) # 追加トリップの用途は全て1とする
 
 # --- 5. 最終的なrou.xmlを出力 ---
 trips_temp.sort(key=lambda x: x[3])
@@ -144,7 +144,7 @@ for i, single_demand in enumerate(trips_temp):
     trip.set('id', f't_{single_demand[0]}')
     
     car_type = single_demand[4]
-    if car_type == 1:
+    if car_type == 2:
         trip.set('type', 'truck')
         
     trip.set('depart', str(single_demand[3]))

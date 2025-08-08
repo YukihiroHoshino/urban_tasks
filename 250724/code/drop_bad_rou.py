@@ -47,7 +47,7 @@ for i in range(len(df_mini)):
     id_ = df_mini['rou_id'].iloc[i]
     from_ = df_mini['edge_id_origin'].iloc[i]
     to_ = df_mini['edge_id_destination'].iloc[i]
-    car_type_ = df_mini['自動車の種別'].iloc[i] # 自動車の種別を取得
+    car_type_ = df_mini['自動車の用途'].iloc[i] # 自動車の種別を取得
     depart_at_raw_ = str(df_mini['トリップの起点時刻'].values[i])
     depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
     trips_temp.append([id_, from_, to_, depart_at_, car_type_])
@@ -78,7 +78,7 @@ for i, single_demand in enumerate(trips_temp):
     
     # 自動車の種別（single_demand[4]）が1の場合、type="truck" を追加
     car_type = single_demand[4]
-    if car_type == 1:
+    if car_type == 2:
         trip.set('type', 'truck')
 
     trip.set('depart', str(single_demand[3]))

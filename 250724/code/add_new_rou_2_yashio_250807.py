@@ -151,8 +151,8 @@ try:
     df_mini = pandas.DataFrame()
     
     if num_days > 0:
-        df_trucks = df_long[df_long['自動車の種別'] == 1]
-        df_normal = df_long[df_long['自動車の種別'] != 1]
+        df_trucks = df_long[df_long['自動車の用途'] == 2]
+        df_normal = df_long[df_long['自動車の用途'] != 2]
         
         num_truck_per_day = int(len(df_trucks) / num_days / ADAPT_RATE_TRUCK)
         num_normal_per_day = int(len(df_normal) / num_days / ADAPT_RATE_NORMAL)
@@ -187,7 +187,7 @@ try:
         
         trip = ET.Element('trip')
         trip.set('id', f't_base_{row["rou_id"]}')
-        if row['自動車の種別'] == 1:
+        if row['自動車の用途'] == 2:
             trip.set('type', 'truck')
         trip.set('depart', str(depart))
         
