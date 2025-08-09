@@ -38,21 +38,24 @@ for i in range(len(df)):
 
 df['route_length'] = route_length_list
 
-# --- 2. 短すぎるトリップを除外 ---
-df_long = df[df['route_length'] > 500].copy()
+# --- 2. 不要なトリップを除外 ---
+df_valid_trips = df[df['route_length'] > 500].copy()
+print(f"元のトリップ数: {len(df)}")
+print(f"500mより長い有効なトリップ数: {len(df_valid_trips)}")
+
 
 # --- 3. 現実の交通量に基づいたサンプリング処理 ---
 
 # 異なる運行日の日数を計算
-num_days = df_long['運行日'].nunique()
+num_days = df_valid_trips['運行日'].nunique()
 
 if num_days == 0:
     print("有効なデータが存在しないため、処理を中断します。")
     df_mini = pandas.DataFrame() # 空のデータフレームを作成
 else:
     # truckとそれ以外の車両にデータを分割
-    df_trucks = df_long[df_long['自動車の用途'] == 2]
-    df_normal = df_long[df_long['自動車の用途'] != 2]
+    df_trucks = df_valid_trips[df_valid_trips['自動車の用途'] == 2]
+    df_normal = df_valid_trips[df_valid_trips['自動車の用途'] != 2]
 
     # 1日あたりの平均交通量を算出
     num_truck_per_day = int(len(df_trucks) / num_days / ADAPT_RATE_TRUCK) if num_days > 0 else 0
@@ -93,24 +96,39 @@ else:
 
     print(f"抽出された合計トリップ数: {len(df_mini)} (トラック: {len(df_sampled_trucks)}, 普通車: {len(df_sampled_normal)})")
 
+# ===== 確認コードここから =====
+print("\n--- 抽出された全トリップのroute_lengthの統計情報 ---")
+if not df_mini.empty:
+    # .describe()で統計情報を表示（count, mean, std, min, 25%, 50%, 75%, max）
+    print(df_mini['route_length'].describe())
+    # 最小値が500より大きいことを確認
+    if df_mini['route_length'].min() > 500:
+        print("\n[確認OK] 全ての抽出トリップのroute_lengthは500より大きい値でした。")
+    else:
+        print("\n[警告] 500以下のroute_lengthを持つトリップが検出されました。")
+else:
+    print("抽出されたトリップはありません。")
+# ===== 確認コードここまで =====
+
 
 # --- 4. rou.xmlファイルへの書き出し準備 ---
 rou_root = ET.Element('routes')
 
 trips_temp = []
-for i in range(len(df_mini)):
-    row = df_mini.iloc[i]
-    id_ = row['rou_id']
-    from_ = row['edge_id_origin']
-    to_ = row['edge_id_destination']
-    car_type_ = row['自動車の用途']
-    depart_at_raw_ = str(row['トリップの起点時刻'])
-    depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
-    trips_temp.append([id_, from_, to_, depart_at_, car_type_])
+if not df_mini.empty:
+    for i in range(len(df_mini)):
+        row = df_mini.iloc[i]
+        id_ = row['rou_id']
+        from_ = row['edge_id_origin']
+        to_ = row['edge_id_destination']
+        car_type_ = row['自動車の用途']
+        depart_at_raw_ = str(row['トリップの起点時刻'])
+        depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
+        trips_temp.append([id_, from_, to_, depart_at_, car_type_])
 
-trips_temp.sort(key=lambda x: x[3])
-for l in trips_temp:
-    l[3] = str(int(l[3]))
+    trips_temp.sort(key=lambda x: x[3])
+    for l in trips_temp:
+        l[3] = str(int(l[3]))
 
 def indent(elem, level=0):
     i = '\n' + level*'  '
