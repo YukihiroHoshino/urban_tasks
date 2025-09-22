@@ -312,8 +312,8 @@ def sample_random_trips(n, trips_df_csv="./trips_df.csv", random_trips_df_csv="r
 
 # 使用例
 trips_df = pd.read_csv("250724/data/example_trips.csv")
-edg_file_path = "250724/data/edge_BRT.edg.xml"
-net_file_path = "250724/data/master_forResearch_fixed_genBRT_truck.net.xml"
+edg_file_path = "250724/data/edge_IC.edg.xml"
+net_file_path = "250724/data/master_forResearch_fixed_after_IC_truck_jp.net.xml"
 
 rou_file_path = "250724/data/example_matched_edit.rou.xml"
 csv_file_path = "250724/data/example_matched_edit.csv"
