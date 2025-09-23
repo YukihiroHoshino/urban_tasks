@@ -6,11 +6,11 @@ import numpy as np
 np.random.seed(0) 
 
 # --- 入力ファイル ---
-df = pandas.read_csv('250724/data/sunday_matched.csv')
-tree = ET.parse('250724/data/sunday_out_nodes.xml')
+df = pandas.read_csv('250724/data/sunday_step1_matched.csv')
+tree = ET.parse('250724/data/sunday_step1_out_nodes.xml')
 
 # --- 出力ファイル ---
-rou_file_path = '250724/data/sunday_dropped.rou.xml'
+rou_file_path = '250724/data/sunday_step1_dropped.rou.xml'
 
 # ETC2.0の普及率を書き換え
 ADAPT_RATE_TRUCK = 0.85
@@ -113,6 +113,9 @@ else:
 
 # --- 4. rou.xmlファイルへの書き出し準備 ---
 rou_root = ET.Element('routes')
+
+ET.SubElement(rou_root, "vType", id="DEFAULT_VEHTYPE")
+ET.SubElement(rou_root, "vType", id="truck", vClass="truck")
 
 trips_temp = []
 if not df_mini.empty:
