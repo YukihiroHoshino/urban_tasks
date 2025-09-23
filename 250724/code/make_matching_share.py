@@ -210,6 +210,13 @@ class ETCDataProcessor:
     def format_output(self, rou_file_path):
         rou_root = ET.Element('routes')
 
+        # vType定義を追加
+        vtype_default = ET.SubElement(rou_root, 'vType')
+        vtype_default.set('id', 'DEFAULT_VEHTYPE')
+        vtype_truck = ET.SubElement(rou_root, 'vType')
+        vtype_truck.set('id', 'truck')
+        vtype_truck.set('vClass', 'truck')
+
         trips_temp = []
         # ★★★ 変更点1: trips_tempに自動車の用途を追加 ★★★
         for i in range(len(self.trips_df)):
@@ -300,11 +307,11 @@ def sample_random_trips(n, trips_df_csv="./trips_df.csv", random_trips_df_csv="r
 
 # 使用例
 trips_df = pd.read_csv("250724/data/sunday_trips.csv")
-edg_file_path = "250724/data/edge_BRT.edg.xml"
-net_file_path = "250724/data/master_forResearch_fixed_genBRT_truck.net.xml"
+edg_file_path = "250724/data/edge_step1.edg.xml"
+net_file_path = "250724/data/master_forResearch_fixed_bukai_step1_truck_jp.net.xml"
 
-rou_file_path = "250724/data/sunday_matched.rou.xml"
-csv_file_path = "250724/data/sunday_matched.csv"
+rou_file_path = "250724/data/sunday_step1_matched.rou.xml"
+csv_file_path = "250724/data/sunday_step1_matched.csv"
 
 processor = ETCDataProcessor(trips_df, edg_file_path, net_file_path, csv_file_path)
 processor.process(rou_file_path)
