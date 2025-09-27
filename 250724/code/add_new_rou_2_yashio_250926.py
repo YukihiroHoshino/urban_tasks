@@ -24,22 +24,21 @@ np.random.seed(0)
 # --- 道の駅IDとエッジIDの対応 ---
 # (このスクリプトでは直接使用しませんが、定義として残しておきます)
 pa_to_edge_map = {
-    "michinoeki_1_1": "128185343",
-    "michinoeki_1_2": "1231325634#1",
-    "michinoeki_2_1": "E12.164",
-    "michinoeki_2_2": "1231325634#3",
-    "michinoeki_3_1": "-314943854#4",
-    "michinoeki_3_2": "314943854#4.70"
+    "pa_1_south": "-128185343_1",
+    "pa_1_west": "1231325634#1_2",
+    "pa_2_south": "-E12_0",
+    "pa_2_west": "1231325634#3_2",
+    "pa_3_east": "314943854#5_1"
 }
 
 # --- シナリオごとの追加トリップ定義 ---
 add_rou_list_1 = [ ["128185343", "Anywhere", 90], ["1231325634#1", "Anywhere", 90], ["Anywhere", "128185343", 90], ["Anywhere", "1231325634#1", 90], ["314943854#8", "Anywhere", 260], ["Anywhere", "314943854#8", 260], ["-314943854#4", "Anywhere", 80], ["314943854#4.70", "Anywhere", 80], ["Anywhere", "-314943854#4", 80], ["Anywhere", "314943854#4.70", 80], ["628774981#1", "Anywhere", 120], ["Anywhere", "628774981#1", 120], ["-732836013#5", "Anywhere", 280], ["Anywhere", "-732836013#5", 280] ]
-add_rou_list_2_1_1 = [ ["michinoeki_1_1", 1500], ["michinoeki_1_2", 1500] ]
-add_rou_list_2_1_2 = [ ["michinoeki_1_1", 3000], ["michinoeki_1_2", 3000] ]
-add_rou_list_2_2_1 = [ ["michinoeki_2_1", 1500], ["michinoeki_2_2", 1500] ]
-add_rou_list_2_2_2 = [ ["michinoeki_2_1", 3000], ["michinoeki_2_2", 3000] ]
-add_rou_list_2_3_1 = [ ["michinoeki_3_1", 1500], ["michinoeki_3_2", 1500] ]
-add_rou_list_2_3_2 = [ ["michinoeki_3_1", 3000], ["michinoeki_3_2", 3000] ]
+add_rou_list_2_1_1 = [ ["pa_1_south", 1500], ["pa_1_west", 1500] ]
+add_rou_list_2_1_2 = [ ["pa_1_south", 3000], ["pa_1_west", 3000] ]
+add_rou_list_2_2_1 = [ ["pa_2_south", 1500], ["pa_2_west", 1500] ]
+add_rou_list_2_2_2 = [ ["pa_2_south", 3000], ["pa_2_west", 3000] ]
+add_rou_list_2_3_1 = [ ["pa_3_east", 1500], ["pa_3_east", 1500] ]
+add_rou_list_2_3_2 = [ ["pa_3_east", 3000], ["pa_3_east", 3000] ]
 
 scenario_map = {
     1: {"truck": add_rou_list_1},

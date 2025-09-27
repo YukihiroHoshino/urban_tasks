@@ -4,19 +4,18 @@ import numpy as np
 
 # --- 設定 ---
 # duarouterで検証後、各ペアから十分にサンプリングできるだけの数を生成します
-NUM_TRIPS_PER_PAIR = 3000
+NUM_TRIPS_PER_PAIR = 4000
 EDG_FILE_PATH = '250724/data/example.edg.xml'
 OUTPUT_POOL_FILE = '250724/data/example_additional_trips_pool.rou.xml'
 
 # --- 道の駅IDとエッジIDの対応 ---
 # (このスクリプトでは直接使用しませんが、定義として残しておきます)
 michinoeki_to_edge_map = {
-    "michinoeki_1_1": "128185343",
-    "michinoeki_1_2": "1231325634#1",
-    "michinoeki_2_1": "E12.164",
-    "michinoeki_2_2": "1231325634#3",
-    "michinoeki_3_1": "-314943854#4",
-    "michinoeki_3_2": "314943854#4.70"
+    "pa_1_south": "-128185343_1",
+    "pa_1_west": "1231325634#1_2",
+    "pa_2_south": "-E12_0",
+    "pa_2_west": "1231325634#3_2",
+    "pa_3_east": "314943854#5_1"
 }
 
 # --- 全シナリオのトリップ定義をここに集約 ---
@@ -30,12 +29,13 @@ all_lists = {
         ["628774981#1", "Anywhere"], ["Anywhere", "628774981#1"],
         ["-732836013#5", "Anywhere"], ["Anywhere", "-732836013#5"]
     ],
-    "L211": [["michinoeki_1_1"], ["michinoeki_1_2"]],
-    "L212": [["michinoeki_1_1"], ["michinoeki_1_2"]],
-    "L221": [["michinoeki_2_1"], ["michinoeki_2_2"]],
-    "L222": [["michinoeki_2_1"], ["michinoeki_2_2"]],
-    "L231": [["michinoeki_3_1"], ["michinoeki_3_2"]],
-    "L232": [["michinoeki_3_1"], ["michinoeki_3_2"]]
+    # 道の駅: こんなに重複させる必要はないけど今後のため
+    "L211": [["pa_1_south"], ["pa_1_west"]],
+    "L212": [["pa_1_south"], ["pa_1_west"]],
+    "L221": [["pa_2_south"], ["pa_2_west"]],
+    "L222": [["pa_2_south"], ["pa_2_west"]],
+    "L231": [["pa_3_east"], ["pa_3_east"]],
+    "L232": [["pa_3_east"], ["pa_3_east"]]
 }
 
 def indent(elem, level=0):
