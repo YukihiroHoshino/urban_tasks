@@ -5,8 +5,8 @@ import numpy as np
 # --- 設定 ---
 # duarouterで検証後、各ペアから十分にサンプリングできるだけの数を生成します
 NUM_TRIPS_PER_PAIR = 4000
-EDG_FILE_PATH = '250724/data/example.edg.xml'
-OUTPUT_POOL_FILE = '250724/data/example_additional_trips_pool.rou.xml'
+EDG_FILE_PATH = '250724/data/edge_IC.edg.xml'
+OUTPUT_POOL_FILE = '250724/data/additional_trips_pool_IC.rou.xml'
 
 # --- 道の駅IDとエッジIDの対応 ---
 # (このスクリプトでは直接使用しませんが、定義として残しておきます)
