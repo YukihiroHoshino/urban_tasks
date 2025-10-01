@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import matplotlib.patches as mpatches
-import japanize_matplotlib # 日本語表示を有効化
 
 # 1. データの読み込みと準備
 csv_file = '250930/data/tripinfo_4.csv'

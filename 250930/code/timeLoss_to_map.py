@@ -13,6 +13,11 @@ original_count = len(df)
 df.dropna(subset=['depart_lon', 'depart_lat'], inplace=True)
 print(f"座標が欠損していた {original_count - len(df)} 件のデータを除外しました。")
 
+if len(df) > 10000:
+    print(f"Data is large. Randomly sampling 10,000 trips.")
+    df = df.sample(n=10000, random_state=42) # Use random_state for reproducibility
+    print(f"Number of trips after sampling: {len(df)}")
+
 # TimeLossの差を計算
 df['timeloss_diff'] = df['step4_timeLoss'] - df['step1_timeLoss']
 

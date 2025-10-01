@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-10 21:12:50 by Eclipse SUMO netedit Version 1.20.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="Hatchijoshiratori_kudari_1_1" lane="138422668#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Hatchijoshiratori_nobori_1_1" lane="-138422668#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="IKEA_kudari_1_1" lane="-1149402056#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="IKEA_nobori_1_1" lane="1149402056#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kakujo_kudari_1_1" lane="846665793_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kakujo_kudari_1_2" lane="846665793_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kakujo_nobori_1_1" lane="846665794#1_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kakujo_nobori_1_2" lane="846665794#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kohnan_kudari_2_1" lane="111496224#5_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kohnan_kudari_2_2" lane="111496224#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kohnan_nobori_2_1" lane="797365201#0_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Kohnan_nobori_2_2" lane="797365201#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="NationalRoute4_kudari_1_1" lane="681638687#54_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="NationalRoute4_nobori_1_1" lane="-681638687#54_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="PialaCity_kudari_1_1" lane="42752020#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="PialaCity_nobori_1_1" lane="849961303#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Raraportmae_kudari_1_1" lane="371981636#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Raraportmae_nobori_1_1" lane="192432483#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo298_kudari_1_1" lane="28187776_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo298_kudari_1_2" lane="28187776_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo298_nobori_1_1" lane="111496854_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo298_nobori_1_2" lane="111496854_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo4_kudari_1_1" lane="312362939#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo4_kudari_1_2" lane="312362939#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo4_nobori_1_1" lane="797365201#4_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Shinzen_kokudo4_nobori_1_2" lane="797365201#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Tanistukanakamachi_kendokawagutisoka_kudari_1_1" lane="378380163#22_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Tanistukanakamachi_kendokawagutisoka_nobori_1_1" lane="-378380163#22_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Tanistukanakamachi_kokudo4_kudari_1_1" lane="797365203#20_0" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Tanistukanakamachi_kokudo4_kudari_1_2" lane="797365203#20_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Tanistukanakamachi_kokudo4_nobori_1_1" lane="102170527#7_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Tanistukanakamachi_kokudo4_nobori_1_2" lane="102170527#7_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Yurinoki_kudari_1_1" lane="-876114449_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="Yurinoki_nobori_1_1" lane="876114449_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kendoadati_kudari_1_1" lane="28186394#3_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kendoadati_nobori_1_1" lane="-28186394#7_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kendoadati_nobori_1_2" lane="-28186394#7_2" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kokudo298_kudari_1_1" lane="672279633#3_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kokudo298_kudari_1_2" lane="672279633#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kokudo298_kudari_1_3" lane="672279633#3_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kokudo298_nobori_1_1" lane="228026165#0_0" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kokudo298_nobori_1_2" lane="228026165#0_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asahicho2chome_kokudo298_nobori_1_3" lane="228026165#0_2" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asukomarui_kudari_1_1" lane="728236291_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asukomarui_kudari_2_1" lane="-72150771#8_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asukomarui_nobori_1_1" lane="135978776#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="asukomarui_nobori_2_1" lane="72150771#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="donki_kudari_1_1" lane="43433952#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="donki_nobori1_1" lane="-43433952#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <!-- <inductionLoop id="e1_0" lane="-1037454062_1" pos="41.01" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="314944605#7_1" pos="60.27" period="300.00" file="e1_1.xml"/>
+    <inductionLoop id="e1_2" lane="314944605#7_2" pos="59.80" period="300.00" file="e1_2.xml"/> -->
+    <inductionLoop id="furesupo_kudari1_1" lane="943201682#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="furesupo_nobori1_1" lane="943201679#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohashi_hachijohachiman_kudari_1_1" lane="-87961457#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohashi_hachijohachiman_nobori_1_1" lane="351777129#9_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohashi_kendo29_kudari_1_1" lane="-1126850808#0_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohashi_kendo29_nobori_1_1" lane="314943851#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kendo298_kudari_1_1" lane="849787184#1_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kendo298_kudari_1_2" lane="849787184#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kendo298_nobori_1_1" lane="34122876#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kendo298_nobori_1_2" lane="34122876#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kokudo4_kudari_1_1" lane="1231325634#6_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kokudo4_kudari_1_2" lane="1231325634#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kokudo4_nobori_1_1" lane="41247904#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijohtori_kokudo4_nobori_1_2" lane="41247904#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguri_kendosaitamasoka_kudari_1_1" lane="482692583#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguri_kendosaitamasoka_kudari_1_2" lane="482692583#1_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguri_kendosaitamasoka_nobori_1_1" lane="-1052374673#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguri_kokudo4_kudari_1_1" lane="102170527#25_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguri_kokudo4_kudari_1_2" lane="102170527#25_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguri_kokudo4_nobori_1_1" lane="797365203#1_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguri_kokudo4_nobori_1_2" lane="797365203#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguricho_kokudo4_kudari_1_1" lane="102170527#23_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguricho_kokudo4_kudari_1_2" lane="102170527#23_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguricho_kokudo4_nobori_1_1" lane="797365203#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguricho_kokudo4_nobori_1_2" lane="797365203#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguricho_shido1030_kudari_1_1" lane="-617971207#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hanaguricho_shido1030_nobori_1_1" lane="617971207#8_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="higashicho_hidari_1_1" lane="1231325649#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="higashicho_migi_1_1" lane="43428691#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="higashicho_migi_1_2" lane="43428691#6_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="higashicho_sita_1_1" lane="475348892#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="higashicho_ue_1_1" lane="-314944605#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="higashicho_ue_1_2" lane="-314944605#0_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="iontown_yoshikawaminami_kudari_1_1" lane="-372153677#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="iontown_yoshikawaminami_nobori_1_1" lane="372153676#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendoheiwatokyo_kudari_1_1" lane="-354970512#23_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendoheiwatokyo_nobori_1_1" lane="354970512#23_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare1_kudari_1_1" lane="-314943851#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare1_nobori_1_1" lane="314943851#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare_2_kudari_1_1" lane="-32133084_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare_2_nobori_1_1" lane="32133084_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare_3_kudari_1_1" lane="943866036_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare_3_nobori_1_1" lane="-943866036_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kiurisekisen_kudari_1_1" lane="-871541472#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kiurisekisen_nobori_1_1" lane="871541472#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_1_kudari_1_1" lane="763358783#0_0" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_1_kudari_1_2" lane="763358783#0_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_1_nobori_1_1" lane="413733339#1_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_1_nobori_1_2" lane="413733339#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_2_kudari_1_1" lane="755599334_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_2_kudari_1_2" lane="755599334_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_2_nobori_1_1" lane="763358782_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kokudo298_2_nobori_1_2" lane="763358782_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigaya_community_kudari_1_1" lane="-259747118#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigaya_community_nobori_1_1" lane="259747118#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigayaragare_kudari_1_1" lane="-471342765#45_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigayaragare_nobori_1_1" lane="471342765#45_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigoehashi_kudari_1_1" lane="43428690_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigoehashi_kudari_1_2" lane="43428690_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigoehashi_nobori_1_1" lane="-43428690_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigoehashi_nobori_1_2" lane="-43428690_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kendokoshigaya_kudari_1_1" lane="871547549#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kendokoshigaya_kudari_1_2" lane="871547549#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kendokoshigaya_kudari_1_3" lane="871547549#2_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kendokoshigaya_nobori_1_1" lane="871547550#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kendokoshigaya_nobori_1_2" lane="871547550#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kendokoshigaya_nobori_1_3" lane="871547550#2_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kokudo4_kudari_1_1" lane="169920367_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kokudo4_kudari_1_2" lane="1231325662#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kokudo4_nobori_1_1" lane="169920326#4_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kokudo4_nobori_1_2" lane="169920326#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_kokudo4_nobori_1_3" lane="169920356_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownNishi_chuou_kudari_1_1" lane="169920418#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownNishi_chuou_nobori_1_1" lane="475021127#11_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownNishi_nishi_kudari_1_1" lane="41249470#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownNishi_nishi_nobori_1_1" lane="484907333#13_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketown_hidari_1_1" lane="871547542#0_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketown_hidari_1_2" lane="871547542#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketown_hidari_1_3" lane="871547542#0_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketown_kudari_1_1" lane="951329848#0_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketown_migi_1_1" lane="-1231325649#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketown_nobori_1_1" lane="951328435#5_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="lakuen_kudari_1_1" lane="-259747127#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="lakuen_nobori_1_1" lane="102303884#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatokikkawa_kudari_1_1" lane="681604448#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatokikkawa_kudari_1_2" lane="681604448#6_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatokikkawa_nobori_1_1" lane="1289504665#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatokikkawa_nobori_1_2" lane="1289504665#0_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatoshopping_kudari_1_1" lane="67153325#3_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatoshopping_kudari_1_2" lane="67153325#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatoshopping_nobori_1_1" lane="314943856#7_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatoshopping_nobori_1_2" lane="314943856#7_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishicho_kokudo4_kudari_1_1" lane="797365203#10_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishicho_kokudo4_kudari_1_2" lane="797365203#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishicho_kokudo4_nobori_1_1" lane="102170527#15_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishicho_kokudo4_nobori_1_2" lane="102170527#15_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishicho_shido1046_kudari_1_1" lane="135978750#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishicho_shido1046_nobori_1_1" lane="-135978750#7_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="raraport_sinmisato_kudari_1_1" lane="371981636#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="raraport_sinmisato_nobori_1_1" lane="1149402061#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shido0110_kudari_1_1" lane="-314943854#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shido0110_nobori_1_1" lane="314943854#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimatyu_souka_kudari_1_1" lane="177971401#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimatyu_souka_kudari_1_2" lane="177971401#5_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimatyu_souka_nobori_1_1" lane="851789017_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimatyu_souka_nobori_1_2" lane="851789017_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="sokasangyodoro_kendokoshigaya_kudari_1_1" lane="-732835972#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="sokasangyodoro_kendokoshigaya_nobori_1_1" lane="720192796#24_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="sokasangyodoro_kokudo298_kudari_1_1" lane="314943855#11_0" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="sokasangyodoro_kokudo298_kudari_1_2" lane="314943855#11_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="sokasangyodoro_kokudo298_nobori_1_1" lane="763384699#4_0" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="sokasangyodoro_kokudo298_nobori_1_2" lane="763384699#4_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="varie_kudari_1_1" lane="868233730_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="varie_kudari_2_1" lane="-102303924#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="varie_nobori_1_1" lane="-871599779#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="varie_nobori_2_1" lane="199575581#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yagohashi_kendo34_kudari_1_1" lane="228026430_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yagohashi_kendo34_nobori_1_1" lane="-482692584#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yagohashi_kendo49_kudari_1_1" lane="849787189#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yagohashi_kendo49_nobori_1_1" lane="-625692038#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yanagishima_kendo103_kudari_1_1" lane="914045913#5_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yanagishima_kendo103_nobori_1_1" lane="-914040654#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yanagishima_kendo104_kudari_1_1" lane="-914045912#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yanagishima_kendo104_nobori_1_1" lane="51930953#18_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijo_kendo102_kudari_1_1" lane="849965126#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijo_kendo102_nobori_1_1" lane="-314943854#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijo_kendo298_kudari_1_1" lane="314943859#0_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijo_kendo298_kudari_1_2" lane="314943859#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijo_kendo298_nobori_1_1" lane="314943852#1_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijo_kendo298_nobori_1_2" lane="314943852#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijo_kendosokanagareyama_nobori_1_1" lane="-732836013#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawaekimae_kudari_1_1" lane="-80112531#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawaekimae_nobori_1_1" lane="-120299416#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawaekimae_nobori_2_1" lane="-951440835#4_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="laketownNishi_chuou_nobori_2_1" lane="871547540#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownNishi_chuou_kudari_2_1" lane="169920427#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_hirakata_nobori_1_1" lane="314944605#7_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_hirakata_nobori_1_2" lane="314944605#7_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="laketownKita_hirakata_kudari_1_1" lane="-1037454062_1" pos="-10.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="koshigaya_nichome_nobori_1_1" lane="228781430#9_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="koshigaya_nichome_kudari_1_1" lane="-228781430#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hisaizu_koshigaya_nobori_1_1" lane="-123547060#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hisaizu_koshigaya_kudari_1_1" lane="123547060#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinkoshigaya_station_nobori_1_1" lane="868173009#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinkoshigaya_station_kudari_1_1" lane="-1125418048#2_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinkoshigaya_station_hidari_1_1" lane="199575555#7_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="minamikoshigaya_ichome_nobori_1_1" lane="868233736#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="minamikoshigaya_ichome_kudari_1_1" lane="-28186232#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="noto_minamikoshigaya_nobori_1_1" lane="1125418047_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="noto_minamikoshigaya_kudari_1_1" lane="-1126659328_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="kitashimomakuri_sangyo_nobori_1_1" lane="322223808#6_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kitashimomakuri_sangyo_nobori_1_2" lane="322223808#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimomakuri_sangyo_kudari_1_1" lane="-844685484#1_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimomakuri_sangyo_kudari_1_2" lane="-844685484#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kitashimomakuri_kokudo4_nobori_1_1" lane="650406504#5_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kitashimomakuri_kokudo4_nobori_1_2" lane="650406504#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kitashimomakuri_kokudo4_kudari_1_1" lane="226946669#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kitashimomakuri_kokudo4_kudari_1_2" lane="226946669#2_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="omano_iwatsuki_nobori_1_1" lane="602094474#20_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="omano_iwatsuki_kudari_1_1" lane="-28186237#0_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="omano_kokudo4_nobori_1_1" lane="260947905#55_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="omano_kokudo4_nobori_1_2" lane="260947905#55_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="omano_kokudo4_kudari_1_1" lane="312362938#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="omano_kokudo4_kudari_1_2" lane="312362938#2_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="motoarakawa_kokudo4_nobori_1_1" lane="28168593#5_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="motoarakawa_kokudo4_nobori_1_2" lane="28168593#5_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="motoarakawa_kokudo4_kudari_1_1" lane="28167440_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="motoarakawa_kokudo4_kudari_1_2" lane="28167440_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="gamo_iwatsuki_nobori_1_1" lane="-868173006_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="gamo_iwatsuki_kudari_1_1" lane="41250277#14_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="gamo_sangyo_nobori_1_1" lane="859955160#16_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="gamo_sangyo_nobori_1_2" lane="859955160#16_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="gamo_sangyo_kudari_1_1" lane="-720192796#0_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="gamo_sangyo_kudari_1_2" lane="-720192796#0_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="shinmeicho_kitakoshigaya_nobori_1_1" lane="868233738#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinmeicho_kitakoshigaya_kudari_1_1" lane="-250369510_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinmeicho_nagareyama_nobori_1_1" lane="-564630218#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinmeicho_nagareyama_kudari_1_1" lane="882175384_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="shichizacho_kawaguchi_nobori_1_1" lane="155254091#19_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shichizacho_kawaguchi_kudari_1_1" lane="-847111101#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shichizacho_nikko_nobori_1_1" lane="260947905#45_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shichizacho_nikko_nobori_1_2" lane="260947905#45_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shichizacho_nikko_kudari_1_1" lane="312362938#10_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shichizacho_nikko_kudari_1_2" lane="312362938#10_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="shimomakuri_kokudo4_nobori_1_1" lane="-635620391_0" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimomakuri_kokudo4_nobori_1_2" lane="-635620391_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimomakuri_kokudo4_kudari_1_1" lane="835942773#5_0" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimomakuri_kokudo4_kudari_1_2" lane="835942773#5_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimomakuri_koshigaya_nobori_1_1" lane="923052239_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shimomakuri_koshigaya_kudari_1_1" lane="314999541#5_0" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="benten_sangyo_nobori_1_1" lane="849665071#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="benten_sangyo_kudari_1_1" lane="-876004395#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="benten_sokanagareyama_nobori_1_1" lane="876004396#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="benten_sokanagareyama_kudari_1_1" lane="-849787186#0_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="kagaribi_noda_nobori_1_1" lane="-28185862#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kagaribi_noda_kudari_1_1" lane="875740506#4_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kagaribi_kasukabe_nobori_1_1" lane="472293297#32_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kagaribi_kasukabe_kudari_1_1" lane="281261080#5_1" pos="-10.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="umeda_kokudo16_nobori_1_1" lane="651462608_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="umeda_kokudo16_nobori_1_2" lane="651462608_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="umeda_kokudo16_kudari_1_1" lane="25012432#1_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="umeda_kokudo16_kudari_1_2" lane="25012432#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="umeda_kuki_nobori_1_1" lane="917833128#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="umeda_kuki_nobori_1_2" lane="917833128#1_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="umeda_kuki_kudari_1_1" lane="28185317_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="midori_yurinoki_nobori_1_1" lane="28184936#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="midori_yurinoki_kudari_1_1" lane="-1125748013_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="midori_kokudo4_nobori_1_1" lane="-1125747999#3_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="midori_kokudo4_kudari_1_1" lane="681638687#62_0" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="yoshikawakoban_kendo67_nobori_1_1" lane="376542860#14_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawakoban_kendo67_kudari_1_1" lane="-564630203#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawakoban_nagareyama_nobori_1_1" lane="709386081#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawakoban_nagareyama_nobori_1_2" lane="709386081#2_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawakoban_nagareyama_kudari_1_1" lane="1299316227_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="pizzara_ichodori_nobori_1_1" lane="-1181754344#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="pizzara_ichodori_kudari_1_1" lane="871613308_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="pizzara_nagareyama_nobori_1_1" lane="871542951#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="pizzara_nagareyama_nobori_1_2" lane="871542951#2_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="pizzara_nagareyama_kudari_1_1" lane="619919850#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="pizzara_nagareyama_kudari_1_2" lane="619919850#1_2" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="mai_yoshikawamatsubushi_nobori_1_1" lane="564630203#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="mai_yoshikawamatsubushi_kudari_1_1" lane="-290524679#0_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="mai_kendo52_nobori_1_1" lane="-619919846#8_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="mai_kendo52__kudari_1_1" lane="619919846#7_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="yoshikawayubin_nobori_1_1" lane="-120304920#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawayubin_kudari_1_1" lane="120305501#4_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawayubin_kendo52_nobori_1_1" lane="-619919846#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawayubin_kendo52__kudari_1_1" lane="471342758#0_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="bypass_misatomatsubushi_nobori_1_1" lane="43419675#35_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="bypass_misatomatsubushi_kudari_1_1" lane="1180958283#5_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="bypass_hiranuma_nobori_1_1" lane="-60649888#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="bypass_hiranuma__kudari_1_1" lane="-706893768#0_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="miwanoe_hiranuma_nobori_1_1" lane="60649888#7_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="miwanoe_hiranuma_nobori_1_2" lane="-351881551#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="miwanoe_hiranuma_kudari_1_1" lane="-60649898#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="miwanoe_hidari_nobori_1_1" lane="120299283#7_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="miwanoe_migi__kudari_1_1" lane="-1182816909#2_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="yoshikawaminami_musashino_nobori_1_1" lane="-1149406137#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawaminami_musashino_kudari_1_1" lane="372153677#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawaminami_hidari_nobori_1_1" lane="-1149406136#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yoshikawaminami_migi__kudari_1_1" lane="442675830#3_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="koshigaya_nagareyama_add_1_1" lane="871541470_1" pos="-10.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="yashiohachijyo_hirakata_add_1_1" lane="849965126#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiohachijyo_hirakata_add_1_2" lane="849965126#6_2" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="hachijyobashi_hachiman_add_nobori_1_1" lane="859959620#16_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijyobashi_hachiman_add_kudari_1_1" lane="351777129#6_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="nishidume_misato_nobori_1_1" lane="76202915#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishidume_misato_kudari_1_1" lane="581036742#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishidume_shiodome_nobori_1_1" lane="-943251251#19_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishidume_shiodome_nobori_1_2" lane="-943251251#19_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="nishidume_shiodome__kudari_1_1" lane="943251251#17_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="hachijokobashi_aoba_nobori_1_1" lane="-865554622#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijokobashi_aoba_kudari_1_1" lane="890891589#20_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijokobashi_yashiomisato_nobori_1_1" lane="608477076#6_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijokobashi_yashiomisato_kudari_1_1" lane="-890891588#1_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="chuo4chome_sangyo_nobori_1_1" lane="351768792#8_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="chuo4chome_sangyo_kudari_1_1" lane="-351768792#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="chuo4chome_matsudosoka_nobori_1_1" lane="608216578#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="chuo4chome_matsudosoka_nobori_1_2" lane="608216578#1_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="chuo4chome_matsudosoka_kudari_1_1" lane="589353010#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="chuo4chome_matsudosoka_kudari_1_2" lane="589353010#2_2" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="ukihana_hirakata_nobori_1_1" lane="-945667500#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="ukihana_hirakata_kudari_1_1" lane="48390571#13_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="ukihana_tsukuba_nobori_1_1" lane="378378707#7_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="ukihana_tsukuba_kudari_1_1" lane="-378378707#8_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="teshiro_yashiomisato_nobori_1_1" lane="860037377#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="teshiro_yashiomisato_kudari_1_1" lane="-32132978#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="teshiro_minamiushiroya_nobori_1_1" lane="-128187698#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="teshiro_minamiushiroya_kudari_1_1" lane="617896896#2_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="kisonenishi_hidari_nobori_1_1" lane="581035406#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kisonenishi_migi_kudari_1_1" lane="-128182489#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kisonenishi_misato_nobori_1_1" lane="868477818.82_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kisonenishi_misato_nobori_1_2" lane="868477818.82_2" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kisonenishi_misato_kudari_1_1" lane="581035403_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kisonenishi_misato_kudari_1_2" lane="581035403_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="shinnakagawa_matsudosoka_nobori_1_1" lane="965110930#9_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinnakagawa_matsudosoka_nobori_1_2" lane="965110930#9_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinnakagawa_matsudosoka_kudari_1_1" lane="381689893#14_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinnakagawa_matsudosoka_kudari_1_2" lane="381689893#14_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinnakagawa_shiodome_nobori_1_1" lane="945651861#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinnakagawa_shiodome_kudari_1_1" lane="-715340693#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinnakagawa_kendo67_nobori_1_1" lane="-692728784#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="shinnakagawa_kendo67_kudari_1_1" lane="381689902#1_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="yashiostation_hidari_nobori_1_1" lane="943201681#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="yashiostation_migi_kudari_1_1" lane="868477192#0_0" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="hachijobashi_hidari_nobori_1_1" lane="32133087#1_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="hachijobashi_migi_kudari_1_1" lane="-32133087#3_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="kendosokanagare_4_nobori_1_1" lane="372025396#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare_4_kudari_1_1" lane="-756131902#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="kendosokanagare_4_kudari_1_2" lane="-756131902#3_2" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="zenmainari_misatomatsubushi_nobori_1_1" lane="1055985657#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="zenmainari_misatomatsubushi_kudari_1_1" lane="-1155723333_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="zenmainari_misatonagareyama_nobori_1_1" lane="1191173874#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="zenmainari_misatonagareyama_kudari_1_1" lane="-1226927751#2_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="misato3chome_sokanagareyama_nobori_1_1" lane="-76201910#4_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misato3chome_sokanagareyama_kudari_1_1" lane="76201910#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misato3chome_misatomatsubushi_nobori_1_1" lane="41246381#3_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misato3chome_misatomatsubushi_kudari_1_1" lane="-41246381#6_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="netztoyota_sokanagareyama_nobori_1_1" lane="32133087#10_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="netztoyota_sokanagareyama_kudari_1_1" lane="-849961309#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="netztoyota_yoshikawamatsubushi_nobori_1_1" lane="1017530902#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="netztoyota_yoshikawamatsubushi_nobori_1_2" lane="1017530902#2_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="netztoyota_yoshikawamatsubushi_kudari_1_1" lane="1149330468#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="netztoyota_yoshikawamatsubushi_kudari_1_2" lane="1149330468#1_2" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="misato_kokudo298_nobori_1_1" lane="314943856#2_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misato_kokudo298_nobori_1_2" lane="314943856#2_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misato_kokudo298_kudari_1_1" lane="439262438#0_0" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misato_kokudo298_kudari_1_2" lane="439262438#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatoic_yoshikawamatsubushi_nobori_1_1" lane="614360368#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatoic_yoshikawamatsubushi_nobori_1_2" lane="614360368#1_2" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="misatoic_yoshikawamatsubushi_kudari_1_1" lane="76202644#16_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="matsudomisato_nobori_1_1" lane="683027102#1_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="matsudomisato_kudari_1_1" lane="-683027102#2_1" pos="30.00" period="300.00" file="out.xml"/>
+
+    <inductionLoop id="togasaki_matsudosouka_nobori_1_1" lane="-1016766947#0_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="togasaki_matsudosouka_kudari_1_1" lane="-39025820#0_1" pos="-10.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="togasaki_yoshikawamatsubushi_nobori_1_1" lane="148820758#19_1" pos="30.00" period="300.00" file="out.xml"/>
+    <inductionLoop id="togasaki_yoshikawamatsubushi_kudari_1_1" lane="-645262487#0_1" pos="30.00" period="300.00" file="out.xml"/>
+
+
+
+</additional>
