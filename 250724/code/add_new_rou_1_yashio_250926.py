@@ -6,7 +6,7 @@ import numpy as np
 # duarouterで検証後、各ペアから十分にサンプリングできるだけの数を生成します
 NUM_TRIPS_PER_PAIR = 4000
 EDG_FILE_PATH = '250724/data/edge_IC.edg.xml'
-OUTPUT_POOL_FILE = '250724/data/additional_trips_pool_IC.rou.xml'
+OUTPUT_POOL_FILE = '250724/data/yashio_additional_trips_pool_IC.rou.xml'
 
 # --- 道の駅IDとエッジIDの対応 ---
 # (このスクリプトでは直接使用しませんが、定義として残しておきます)
@@ -57,6 +57,13 @@ except FileNotFoundError:
     exit()
 
 rou_root = ET.Element('routes')
+
+vtype_default = ET.SubElement(rou_root, 'vType')
+vtype_default.set('id', 'DEFAULT_VEHTYPE')
+vtype_truck = ET.SubElement(rou_root, 'vType')
+vtype_truck.set('id', 'truck')
+vtype_truck.set('vClass', 'truck')
+
 trip_counter = 0
 
 print(f"各定義について {NUM_TRIPS_PER_PAIR} 台のトリップを生成します...")
@@ -74,6 +81,7 @@ for list_name, demand_list in all_lists.items():
                 
                 trip = ET.SubElement(rou_root, 'trip')
                 trip.set('id', f'pool_L1_{trip_counter}')
+                trip.set('type', 'truck')
                 trip.set('depart', "0")
                 trip.set('from', o)
                 trip.set('to', d)
@@ -91,7 +99,6 @@ for list_name, demand_list in all_lists.items():
                 trip = ET.SubElement(rou_root, 'trip')
                 # ★重要: IDにpa_idを含めることで、add_new_rou_2.pyがどの道の駅の経路か識別できるようにする
                 trip.set('id', f'pool_{list_name}_{pa_id}_{trip_counter}')
-                trip.set('type', 'car')
                 trip.set('depart', '0')
                 trip.set('from', edge_od)
                 trip.set('to', edge_od)

@@ -9,12 +9,12 @@ SCENARIO_ID = 7
 # --------------------------
 
 # --- 入力ファイル ---
-BASE_CSV_PATH = '250724/data/sunday_matched.csv'
-BASE_OUT_NODES_PATH = '250724/data/sunday_out_nodes.xml'
-VALIDATED_POOL_PATH = '250724/data/example_additional_out_nodes.xml'
+BASE_CSV_PATH = '250724/data/example_matched_edit.csv'
+BASE_OUT_NODES_PATH = '250724/data/example_out_nodes.xml'
+VALIDATED_POOL_PATH = '250724/data/yashio_additional_out_nodes.xml'
 
 # --- 出力ファイル ---
-FINAL_ROU_FILE_PATH = f'250724/data/sunday_added_v2_scenario_{SCENARIO_ID}.rou.xml'
+FINAL_ROU_FILE_PATH = f'250724/data/example_scenario_{SCENARIO_ID}.rou.xml'
 
 # --- 固定パラメータ ---
 ADAPT_RATE_TRUCK = 0.85
@@ -111,7 +111,7 @@ selected_scenario = scenario_map.get(SCENARIO_ID)
 
 if selected_scenario:
     for v_type, demand_list in selected_scenario.items():
-        v_type_name = "truck" if v_type == "truck" else 'car'
+        v_type_name = "truck" if v_type == "truck" else 'DEFAULT_VEHTYPE'
         depart_min, depart_max = (0, 86400) if v_type == "truck" else (32400, 61200)
         
         for i, demand_item in enumerate(demand_list):
@@ -164,21 +164,21 @@ if selected_scenario:
                 for k, index in enumerate(sampled_indices):
                     route_element = candidate_routes[index]
                     edges = route_element.get('edges').split()
-                    edge_od = edges[0] # 出発地と目的地は同じはず
+                    edge_od = edges[0]  # 出発地と目的地は同じはず
 
                     new_trip = ET.Element('trip')
                     new_trip.set('id', f't_add_{v_type}_{i}_{k}')
-                    new_trip.set('type', v_type_name)
                     new_trip.set('depart', str(np.random.randint(depart_min, depart_max)))
                     new_trip.set('from', edge_od)
                     new_trip.set('to', edge_od)
-                    
+
                     stop = ET.SubElement(new_trip, 'stop')
                     stop.set('parkingArea', pa_id)
                     duration = str(np.random.randint(5400, 7201))
                     stop.set('duration', duration)
                     final_added_trips.append(new_trip)
                 total_added_count += len(sampled_indices)
+
 
 print(f"シナリオ {SCENARIO_ID} のために、{total_added_count} 台の追加トリップを生成しました。")
 
@@ -222,22 +222,132 @@ try:
         for _, row in df_mini.iterrows():
             depart_raw = str(row['トリップの起点時刻'])
             depart = int(depart_raw[8:10])*3600 + int(depart_raw[10:12])*60 + int(depart_raw[12:14])
-            trip = ET.Element('trip')
-            trip.set('id', f't_base_{row["rou_id"]}')
-            if row['自動車の用途'] == 2: trip.set('type', 'truck')
-            trip.set('depart', str(depart))
             from_edge, to_edge = row['edge_id_origin'], row['edge_id_destination']
-            if from_edge.endswith('N'): trip.set('fromJunction', from_edge[:-1])
-            else: trip.set('from', from_edge)
-            if to_edge.endswith('N'): trip.set('toJunction', to_edge[:-1])
-            else: trip.set('to', to_edge)
-            base_trips_to_add.append(trip)
+            rou_id_str = f't_base_{row["rou_id"]}'
+            
+            # junction指定の正規化
+            from_attr = ('fromJunction', from_edge[:-1]) if from_edge.endswith('N') else ('from', from_edge)
+            to_attr = ('toJunction', to_edge[:-1]) if to_edge.endswith('N') else ('to', to_edge)
+
+            if row['自動車の用途'] == 2:
+                # --- トラックは従来通り <trip> ---
+                trip = ET.Element('trip')
+                trip.set('id', rou_id_str)
+                trip.set('type', 'truck')
+                trip.set('depart', str(depart))
+                trip.set(*from_attr)
+                trip.set(*to_attr)
+                base_trips_to_add.append(trip)
+            else:
+                # --- 普通車などは <person> + <personTrip> ---
+                person = ET.Element('person')
+                person.set('id', rou_id_str.replace('t_base_', 't_'))  # "t_"接頭
+                person.set('depart', str(depart))
+                person.set('period', '1')
+
+                person_trip = ET.SubElement(person, 'personTrip')
+                person_trip.set(*from_attr)
+                person_trip.set(*to_attr)
+                person_trip.set('modes', 'public car')
+
+                base_trips_to_add.append(person)
+
 except FileNotFoundError as e:
     print(f"警告: 元の交通データが見つかりません ({e.filename})。")
 
 # --- 4. 全てのトリップを結合し、最終ファイルを出力 ---
 # (このセクションは変更ありません)
 rou_root = ET.Element('routes')
+
+vtype_default = ET.SubElement(rou_root, 'vType')
+vtype_default.set('id', 'DEFAULT_VEHTYPE')
+vtype_truck = ET.SubElement(rou_root, 'vType')
+vtype_truck.set('id', 'truck')
+vtype_truck.set('vClass', 'truck')
+vtype_BUS = ET.SubElement(rou_root, 'vType')
+vtype_BUS.set('id', 'BUS')
+vtype_BUS.set('vClass', 'bus')
+vtype_BUS.set('length', '12')
+vtype_BUS.set('width', '2.5')
+vtype_BUS.set('maxSpeed', '27')
+vtype_BUS.set('accel', '2.0')
+vtype_BUS.set('decel', '4.0')
+vtype_BUS.set('sigma', '0.5')
+vtype_BUS.set('color', '1,1,0')
+vtype_BUS.set('personCapacity', '40')
+
+bus_flow = ET.SubElement(rou_root, 'flow')
+bus_flow.set('id', 'busflow_1')
+bus_flow.set('type', 'BUS')
+bus_flow.set('begin', '0')
+bus_flow.set('end', '86399')
+bus_flow.set('line', 'line')
+bus_flow.set('from', '128185375')
+bus_flow.set('to', '128185375')
+bus_flow.set('via', '447675894#1 447675894#1.32 -E19 -E18 -E17 -E16 -E16.17 -E15 -E14 E12 E12.154 E12.164 E13 1231325642#0 1231325642#0.343 1231325642#1 1231325642#2 1231325646#0 1231325646#0.55 1231325646#1 1231325646#2 1231325647 1185697574#0 1185697574#1 1185697574#2 1185697574#3 951329849#1 951329849#2 951329849#3 951328429#0 951328429#1 169920326#0 169920326#1 169920326#2 169920326#3 169920326#4 1231325655#0 1231325655#0.62 1231325655#0.62.56 1231325655#1 1231325655#2 1231325664#0 E51 E70 E70.449 28184296#9 28184616 28111409 28184603#1 -E70.140.315 41247903#4 1231325662#1.41 1231325661#1 951329843 951329843.64 1231325643#1 1231325643#2 447675894#1 447675894#1.32 -E19 -E18 -E17 -E16 -E16.17 -E15 -E14 E12 E12.154 E12.164')
+bus_flow.set('period', '300.00')
+bus_flow.set('period', '300.00')
+bus_flow.set('arrivalLane', '2')
+bus_flow.set('departLaneChangeProhibited', 'true')
+bus_flow.set('arrivalLaneChangeProhibited', 'true')
+bus_flow.set('arrivalLane', '2')
+bus_flow.set('departLaneChangeProhibited', 'true')
+bus_flow.set('arrivalLaneChangeProhibited', 'true')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_smartic3')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_sokaparkd')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_laketownd')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_laketown2d')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_laketown3d')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_ichigoparkd')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_techpoliced')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_toyonod')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_kasukabeaeond')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_kasukabeaeonu')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_toyonou')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_techpoliceu')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_ichigoparku')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_laketown3u')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_laketown2u')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_laketownu')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_sokaparku')
+stop.set('until', '1')
+stop = ET.SubElement(bus_flow, 'flow')
+stop.set('busStop', 'bs_smartic3')
+stop.set('until', '1')
+
 all_elements = base_trips_to_add + final_added_trips
 all_elements.sort(key=lambda x: int(x.get('depart')))
 for elem in all_elements:
