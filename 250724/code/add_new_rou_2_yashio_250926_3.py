@@ -5,7 +5,7 @@ import numpy as np
 from collections import defaultdict
 
 # --- ★★★ 設定項目 ★★★ ---
-SCENARIO_ID = 1
+SCENARIO_ID = 3
 # --------------------------
 
 # --- 入力ファイル ---
