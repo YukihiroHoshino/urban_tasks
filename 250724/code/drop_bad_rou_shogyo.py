@@ -6,11 +6,11 @@ import numpy as np
 np.random.seed(0)
 
 # --- 入力ファイル ---
-df = pandas.read_csv('250724/data/thursday_BRT_matched.csv')
-tree = ET.parse('250724/data/thursday_BRT_out_nodes.xml')
+df = pandas.read_csv('250724/data/sunday_IC_matched.csv')
+tree = ET.parse('250724/data/sunday_IC_out_nodes.xml')
 
 # --- 出力ファイル ---
-rou_file_path = '250724/data/thursday_BRT_dropped_1.5.rou.xml'
+rou_file_path = '250724/data/sunday_IC_shogyo_dropped.rou.xml'
 
 # ETC2.0の普及率
 ADAPT_RATE_TRUCK = 0.85
@@ -47,8 +47,8 @@ else:
     df_trucks = df_valid_trips[df_valid_trips['自動車の用途'] == 2]
     df_normal = df_valid_trips[df_valid_trips['自動車の用途'] != 2]
 
-    num_truck_per_day = int(len(df_trucks) / num_days / ADAPT_RATE_TRUCK * 1.5)
-    num_normal_per_day = int(len(df_normal) / num_days / ADAPT_RATE_NORMAL * 1.5)
+    num_truck_per_day = int(len(df_trucks) / num_days / ADAPT_RATE_TRUCK)
+    num_normal_per_day = int(len(df_normal) / num_days / ADAPT_RATE_NORMAL)
 
     print(f"運行日数: {num_days}日")
     print(f"1日あたりトラック目標数: {num_truck_per_day}")
@@ -177,13 +177,18 @@ stop.set('until', '1')
 trips_temp = []
 if not df_mini.empty:
     for i, row in df_mini.iterrows():
-        id_ = row['rou_id']
-        from_ = row['edge_id_origin']
-        to_ = row['edge_id_destination']
-        car_type_ = row['自動車の用途']
-        depart_at_raw_ = str(row['トリップの起点時刻'])
-        depart_at_ = int(depart_at_raw_[8:10]) * 3600 + int(depart_at_raw_[10:12]) * 60 + int(depart_at_raw_[12:14])
-        trips_temp.append([id_, from_, to_, depart_at_, car_type_])
+        # 緯度・経度情報もリストに追加
+        trips_temp.append([
+            row['rou_id'],
+            row['junction_id_origin'],
+            row['junction_id_destination'],
+            int(str(row['トリップの起点時刻'])[8:10]) * 3600 + int(str(row['トリップの起点時刻'])[10:12]) * 60 + int(str(row['トリップの起点時刻'])[12:14]),
+            row['自動車の用途'],
+            row['緯度_destination'],
+            row['経度_destination'],
+            row['緯度_origin']
+        ])
+    # 出発時刻でソート
     trips_temp.sort(key=lambda x: x[3])
 
 def indent(elem, level=0):
@@ -203,42 +208,51 @@ def indent(elem, level=0):
 for l in trips_temp:
     rou_id_str = f"t_{l[0]}"
     depart = str(l[3])
-    from_edge = l[1]
-    to_edge = l[2]
+    from_junction = l[1]
+    to_junction = l[2]  # デフォルトの目的地
+    car_type = l[4]
+    lat_dest = l[5]
+    lon_dest = l[6]
+    lat_origin = l[7]
 
-    # from/to属性判定
-    if from_edge.endswith('N'):
-        from_attr = ('fromJunction', from_edge[:-1])
-    else:
-        from_attr = ('from', from_edge)
-    if to_edge.endswith('N'):
-        to_attr = ('toJunction', to_edge[:-1])
-    else:
-        to_attr = ('to', to_edge)
+    if car_type != 2:  # トラック以外の場合
+        # 目的地の緯度・経度が指定範囲内かチェック
+        if (35.871099 < lat_dest < 35.890007) and \
+            (139.810378 < lon_dest < 139.830920):
+            # 出発地の緯度に基づいて集約先を決定し、目的地(to_edge)を上書き
+            if lat_origin > 35.8837:
+                to_junction = "1810780648N"
+                parking = 'm1'
+            else:
+                to_junction = "3908775623N"
+                parking = 'o1_1'
+            trip = ET.Element('trip')
+            trip.set('id', f'{rou_id_str}_laketown')
+            trip.set('depart', depart)
+            trip.set('fromJunction', from_junction[:-1])
+            trip.set('toJunction', to_junction[:-1])
+            stop = ET.SubElement(trip, 'stop')
+            stop.set('parkingArea', parking)
+            stop.set('duration', '7200')
+            rou_root.append(trip)
 
-    # --- ルールに応じてtripまたはpersonTripを生成 ---
-    if l[4] == 2:
-        # トラック: 従来の<trip>
+        else:
+            trip = ET.Element('trip')
+            trip.set('id', rou_id_str)
+            trip.set('depart', depart)
+            trip.set('fromJunction', from_junction[:-1])
+            trip.set('toJunction', to_junction[:-1])
+            rou_root.append(trip)
+    
+    else:
         trip = ET.Element('trip')
         trip.set('id', rou_id_str)
         trip.set('type', 'truck')
         trip.set('depart', depart)
-        trip.set(*from_attr)
-        trip.set(*to_attr)
+        trip.set('fromJunction', from_junction[:-1])
+        trip.set('toJunction', to_junction[:-1])
         rou_root.append(trip)
-    else:
-        # 普通車など: <person> + <personTrip>
-        person = ET.Element('person')
-        person.set('id', rou_id_str.replace('t_base_', 't_'))
-        person.set('depart', depart)
-        person.set('period', '1')
 
-        person_trip = ET.SubElement(person, 'personTrip')
-        person_trip.set(*from_attr)
-        person_trip.set(*to_attr)
-        person_trip.set('modes', 'public car')
-
-        rou_root.append(person)
 
 # --- XML整形 & 書き出し ---
 indent(rou_root)

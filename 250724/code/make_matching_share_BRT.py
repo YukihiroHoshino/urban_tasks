@@ -107,17 +107,17 @@ class ETCDataProcessor:
                     highway = 1 if child.attrib['type'] == 'highway.motorway' else 0
                     edge_list.append((child.attrib['id'], shapes[0][0], shapes[0][1], shapes[-1][0], shapes[-1][1], highway))
                     if highway == 1:
-                        highway_from[child.attrib['from']] = [child.attrib['from'] + 'N', shapes[0][0], shapes[0][1]]
-                        highway_to[child.attrib['to']] = [child.attrib['to']+'N', shapes[-1][0], shapes[-1][1]]
+                        highway_from[child.attrib['from']] = [child.attrib['from'], shapes[0][0], shapes[0][1]]
+                        highway_to[child.attrib['to']] = [child.attrib['to'], shapes[-1][0], shapes[-1][1]]
                     else:
-                        not_highway_from[child.attrib['from']] = [child.attrib['from']+'N', shapes[0][0], shapes[0][1]]
-                        not_highway_to[child.attrib['to']] = [child.attrib['to']+'N', shapes[-1][0], shapes[-1][1]]
+                        not_highway_from[child.attrib['from']] = [child.attrib['from'], shapes[0][0], shapes[0][1]]
+                        not_highway_to[child.attrib['to']] = [child.attrib['to'], shapes[-1][0], shapes[-1][1]]
 
 
-        self.nodes_highway_from_df = pd.DataFrame(list(highway_from.values()), columns=['edge_id', 'depart_x', 'depart_y'])
-        self.nodes_highway_to_df = pd.DataFrame(list(highway_to.values()), columns=['edge_id', 'dest_x', 'dest_y'])
-        self.nodes_not_highway_from_df = pd.DataFrame(list(not_highway_from.values()), columns=['edge_id', 'depart_x', 'depart_y'])
-        self.nodes_not_highway_to_df = pd.DataFrame(list(not_highway_to.values()), columns=['edge_id', 'dest_x', 'dest_y'])
+        self.nodes_highway_from_df = pd.DataFrame(list(highway_from.values()), columns=['junction_id', 'depart_x', 'depart_y'])
+        self.nodes_highway_to_df = pd.DataFrame(list(highway_to.values()), columns=['junction_id', 'dest_x', 'dest_y'])
+        self.nodes_not_highway_from_df = pd.DataFrame(list(not_highway_from.values()), columns=['junction_id', 'depart_x', 'depart_y'])
+        self.nodes_not_highway_to_df = pd.DataFrame(list(not_highway_to.values()), columns=['junction_id', 'dest_x', 'dest_y'])
 
         #それぞれfroatに変換
         self.nodes_highway_from_df['depart_x'] = self.nodes_highway_from_df['depart_x'].astype(float)
@@ -139,12 +139,12 @@ class ETCDataProcessor:
         for index, row in self.nodes_highway_from_df.iterrows():
             x, y = self.calc_xy(row['depart_y'], row['depart_x'], 35.876124,139.821685)
             edges_cluster_depart_highway.append([x, y])
-            edges_cluster_name_depart_highway.append(row['edge_id'])
+            edges_cluster_name_depart_highway.append(row['junction_id'])
 
         for index, row in self.nodes_highway_to_df.iterrows():
             x, y = self.calc_xy(row['dest_y'], row['dest_x'], 35.876124,139.821685)
             edges_cluster_dest_highway.append([x, y])
-            edges_cluster_name_dest_highway.append(row['edge_id'])
+            edges_cluster_name_dest_highway.append(row['junction_id'])
 
         edges_cluster_kdtree_depart_highway = KDTree(edges_cluster_depart_highway)
         edges_cluster_kdtree_dest_highway = KDTree(edges_cluster_dest_highway)
@@ -156,12 +156,12 @@ class ETCDataProcessor:
         for index, row in self.nodes_not_highway_from_df.iterrows():
             x, y = self.calc_xy(row['depart_y'], row['depart_x'], 35.876124,139.821685)
             edges_cluster_depart_not_highway.append([x, y])
-            edges_cluster_name_depart_not_highway.append(row['edge_id'])
+            edges_cluster_name_depart_not_highway.append(row['junction_id'])
         
         for index, row in self.nodes_not_highway_to_df.iterrows():
             x, y = self.calc_xy(row['dest_y'], row['dest_x'], 35.876124,139.821685)
             edges_cluster_dest_not_highway.append([x, y])
-            edges_cluster_name_dest_not_highway.append(row['edge_id'])
+            edges_cluster_name_dest_not_highway.append(row['junction_id'])
 
         edges_cluster_kdtree_depart_not_highway = KDTree(edges_cluster_depart_not_highway)
         edges_cluster_kdtree_dest_not_highway = KDTree(edges_cluster_dest_not_highway)
@@ -194,8 +194,34 @@ class ETCDataProcessor:
                 ind_destination_0 = int(ind_destination.item(0))
                 closest_edges_destination.append(edges_cluster_name_dest_not_highway[ind_destination_0])
 
-        self.trips_df['edge_id_origin'] = closest_edges_origin
-        self.trips_df['edge_id_destination'] = closest_edges_destination
+        self.trips_df['junction_id_origin'] = closest_edges_origin
+        self.trips_df['junction_id_destination'] = closest_edges_destination
+
+        updated_destinations = []
+        for index, row in self.trips_df.iterrows():
+            car_type_ = row['自動車の用途']
+            to_ = row['junction_id_destination'] # 現在のマッチング結果を取得
+
+            if car_type_ != 2: # トラック以外の場合
+                lat_dest = row["緯度_destination"]
+                lon_dest = row["経度_destination"]
+
+                # 目的地の緯度・経度が指定範囲内かチェック
+                if (35.871099 < lat_dest < 35.890007) and \
+                   (139.810378 < lon_dest < 139.830920):
+                    
+                    lat_origin = row["緯度_origin"]
+                    
+                    # 出発地の緯度に基づいて集約先を決定し、to_を上書き
+                    if lat_origin > 35.8837:
+                        to_ = "1810854435"
+                    else:
+                        to_ = "1388616614"
+            
+            updated_destinations.append(to_)
+
+        # DataFrameの列を更新されたリストで一括置換
+        self.trips_df['junction_id_destination'] = updated_destinations
 
         # tripinfoとETC2.0の比較のためidを振り直すß
         rou_id = []
@@ -221,33 +247,13 @@ class ETCDataProcessor:
         
         for i in range(len(self.trips_df)):
             id_ = self.trips_df['rou_id'].iloc[i]
-            from_ = self.trips_df['edge_id_origin'].iloc[i]
-            to_ = self.trips_df['edge_id_destination'].iloc[i]
+            from_ = self.trips_df['junction_id_origin'].iloc[i]
+            to_ = self.trips_df['junction_id_destination'].iloc[i]
             depart_at_raw_ = str(self.trips_df['トリップの起点時刻'].values[i])
             depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
             car_type_ = self.trips_df['自動車の用途'].iloc[i]
 
-            ### ▼▼▼ 変更箇所 ▼▼▼ ###
-            # '自動車の用途'が2 (truck) の場合、目的地の集約処理を行う
-            if car_type_ != 2:
-                lat_dest = self.trips_df["緯度_destination"].iloc[i]
-                lon_dest = self.trips_df["経度_destination"].iloc[i]
-
-                # 目的地の緯度・経度が指定範囲内かチェック
-                if (35.870278 < lat_dest < 35.885212) and \
-                   (139.816485 < lon_dest < 139.832880):
-                    
-                    lat_origin = self.trips_df["緯度_origin"].iloc[i]
-                    
-                    # 出発地の緯度に基づいて集約先を決定
-                    if lat_origin > 35.8837:
-                        to_ = "J306_genbus"
-                    else:
-                        to_ = "J305_genbus"
-            ### ▲▲▲ 変更箇所 ▲▲▲ ###
-            
             trips_temp.append([id_, from_, to_, depart_at_, car_type_])
-
 
         trips_temp.sort(key=lambda x: x[3])
         for l in trips_temp:
@@ -275,16 +281,11 @@ class ETCDataProcessor:
             car_type = single_demand[4]
             if car_type == 2:
                 trip.set('type', 'truck')
-            
             trip.set('depart', str(single_demand[3]))
-            if single_demand[1][-1] == 'N':
-                trip.set('fromJunction', single_demand[1][:-1])
-            else:
-                trip.set('from', single_demand[1])
-            if single_demand[2][-1] == 'N':
-                trip.set('toJunction', single_demand[2][:-1])
-            else:
-                trip.set('to', single_demand[2])
+            from_junction_id = single_demand[1]
+            trip.set('fromJunction', from_junction_id)
+            to_junction_id = single_demand[2]
+            trip.set('toJunction', to_junction_id)
 
         rou_tree = ET.ElementTree(rou_root)
 

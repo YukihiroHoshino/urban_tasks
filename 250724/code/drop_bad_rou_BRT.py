@@ -6,11 +6,11 @@ import numpy as np
 np.random.seed(0)
 
 # --- 入力ファイル ---
-df = pandas.read_csv('250724/data/sunday_BRT_matched.csv')
-tree = ET.parse('250724/data/sunday_BRT_out_nodes.xml')
+df = pandas.read_csv('250724/data/sunday_BRT_matched_modified2.csv')
+tree = ET.parse('250724/data/sunday_BRT_modified2_out_nodes.xml')
 
 # --- 出力ファイル ---
-rou_file_path = '250724/data/sunday_BRT_dropped.rou.xml'
+rou_file_path = '250724/data/sunday_BRT_dropped_modified2.rou.xml'
 
 # ETC2.0の普及率
 ADAPT_RATE_TRUCK = 0.85
@@ -177,13 +177,18 @@ stop.set('until', '1')
 trips_temp = []
 if not df_mini.empty:
     for i, row in df_mini.iterrows():
-        id_ = row['rou_id']
-        from_ = row['edge_id_origin']
-        to_ = row['edge_id_destination']
-        car_type_ = row['自動車の用途']
-        depart_at_raw_ = str(row['トリップの起点時刻'])
-        depart_at_ = int(depart_at_raw_[8:10]) * 3600 + int(depart_at_raw_[10:12]) * 60 + int(depart_at_raw_[12:14])
-        trips_temp.append([id_, from_, to_, depart_at_, car_type_])
+        # 緯度・経度情報もリストに追加
+        trips_temp.append([
+            row['rou_id'],
+            row['junction_id_origin'],
+            row['junction_id_destination'],
+            int(str(row['トリップの起点時刻'])[8:10]) * 3600 + int(str(row['トリップの起点時刻'])[10:12]) * 60 + int(str(row['トリップの起点時刻'])[12:14]),
+            row['自動車の用途'],
+            row['緯度_destination'],
+            row['経度_destination'],
+            row['緯度_origin']
+        ])
+    # 出発時刻でソート
     trips_temp.sort(key=lambda x: x[3])
 
 def indent(elem, level=0):
@@ -203,28 +208,22 @@ def indent(elem, level=0):
 for l in trips_temp:
     rou_id_str = f"t_{l[0]}"
     depart = str(l[3])
-    from_edge = l[1]
-    to_edge = l[2]
-
-    # from/to属性判定
-    if from_edge.endswith('N'):
-        from_attr = ('fromJunction', from_edge[:-1])
-    else:
-        from_attr = ('from', from_edge)
-    if to_edge.endswith('N'):
-        to_attr = ('toJunction', to_edge[:-1])
-    else:
-        to_attr = ('to', to_edge)
+    from_junction = l[1]
+    to_junction = l[2]  # デフォルトの目的地
+    car_type = l[4]
+    lat_dest = l[5]
+    lon_dest = l[6]
+    lat_origin = l[7]
 
     # --- ルールに応じてtripまたはpersonTripを生成 ---
-    if l[4] == 2:
+    if car_type == 2:
         # トラック: 従来の<trip>
         trip = ET.Element('trip')
         trip.set('id', rou_id_str)
         trip.set('type', 'truck')
         trip.set('depart', depart)
-        trip.set(*from_attr)
-        trip.set(*to_attr)
+        trip.set('fromJunction', from_junction)
+        trip.set('toJunction', to_junction)
         rou_root.append(trip)
     else:
         # 普通車など: <person> + <personTrip>
@@ -234,8 +233,8 @@ for l in trips_temp:
         person.set('period', '1')
 
         person_trip = ET.SubElement(person, 'personTrip')
-        person_trip.set(*from_attr)
-        person_trip.set(*to_attr)
+        person_trip.set('fromJunction', from_junction)
+        person_trip.set('toJunction', to_junction)
         person_trip.set('modes', 'public car')
 
         rou_root.append(person)

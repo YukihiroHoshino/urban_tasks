@@ -11,7 +11,7 @@ csv_file = '250930/data/tripinfo_BRT.csv'
 df = pd.read_csv(csv_file)
 
 # --- 移動距離(routeLength)によるフィルタリング ---
-route_length_threshold = 0
+route_length_threshold = 500
 print(f"移動距離が {route_length_threshold}m 以上のトリップのみを対象とします。")
 count_before_filter = len(df)
 df = df[df['step1_routeLength'] >= route_length_threshold].copy()
@@ -64,7 +64,7 @@ df_filtered['timeloss_diff'] = df_filtered['step4_timeLoss'] - df_filtered['step
 
 min_val = df_filtered['timeloss_diff'].min()
 max_val = df_filtered['timeloss_diff'].max()
-bins = np.arange(np.floor(min_val / 500) * 500, np.ceil(max_val / 500) * 500 + 500, 500)
+bins = np.arange(np.floor(min_val / 50) * 50, np.ceil(max_val / 50) * 50 + 50, 50)
 df_filtered['binned'] = pd.cut(df_filtered['timeloss_diff'], bins=bins, right=False)
 grouped_data = df_filtered.groupby('binned', observed=False)['timeloss_diff'].agg(['sum', 'size']).reset_index()
 grouped_data['midpoint'] = grouped_data['binned'].apply(lambda x: x.mid).astype(float)
@@ -118,11 +118,12 @@ ax1.tick_params(axis='y', labelcolor='black')
 ax1.axhline(0, color='black', linewidth=0.8)
 ax1.grid(axis='y', linestyle='--', alpha=0.7)
 ax1.set_xlim(left=0) # X軸の最小値を0に設定
+ax1.set_xlim(right=3500)
 
 # 凡例はプロット時にlabel引数で指定したため、自動生成
 ax1.legend(loc='upper right', fontsize=10)
 
 fig.tight_layout()
-fig.savefig('250930/fig/timeloss_diff_long.png', dpi=300)
+fig.savefig('250930/fig/timeloss_BRT_all.png', dpi=300)
 #plt.show()
 

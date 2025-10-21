@@ -3,7 +3,7 @@ import folium
 
 # --- 1. データの読み込みと準備 ---
 
-csv_file = '250930/data/tripinfo_with_coords_4.csv'
+csv_file = '250930/data/tripinfo_with_coords_BRT.csv'
 print(f"'{csv_file}' を読み込んでいます...")
 df = pd.read_csv(csv_file)
 
@@ -15,7 +15,7 @@ print(f"座標が欠損していた {original_count - len(df)} 件のデータ�
 # --- ★★★ 変更点：移動距離(routeLength)によるフィルタリング ★★★ ---
 # フィルタリングのしきい値を設定 (単位: メートル)
 # この値を変更することで、描画対象のトリップの長さを調整できます。
-route_length_threshold = 40000.0
+route_length_threshold = 5000
 
 print(f"\n移動距離が {route_length_threshold}m 以上のトリップのみを抽出します...")
 count_before_filter = len(df)
@@ -27,7 +27,7 @@ print(f"フィルタリングの結果、 {count_before_filter}件 から {len(d
 # 10000件にランダムサンプリング
 if len(df) > 1000:
     print(f"\nデータが多いため、1000件にランダムサンプリングします。")
-    df_sampled = df.sample(n=1000, random_state=999) # random_stateで結果を固定
+    df_sampled = df.sample(n=5000, random_state=999) # random_stateで結果を固定
     print(f"サンプリング後のデータ件数: {len(df_sampled)}件")
 else:
     df_sampled = df
@@ -94,7 +94,7 @@ m.get_root().html.add_child(folium.Element(legend_html))
 
 # --- 5. HTMLファイルとして保存 ---
 
-output_html = '250930/data/trip_lines_map_filtered_sampled_short.html' # ★新しいファイル名
+output_html = '250930/data/trip_lines_map_BRT_all.html' # ★新しいファイル名
 m.save(output_html)
 
 print(f"\n処理が完了しました！ ✨")

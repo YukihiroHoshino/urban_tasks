@@ -49,9 +49,9 @@ def parse_edge_xml_to_coords(edg_xml_path):
 # --- メイン処理 ---
 
 # 1. ファイルパスの設定
-tripinfo_csv_path = '250930/data/tripinfo_example.csv'
-edge_xml_path = '250724/data/edge_IC.edg.xml'
-output_csv_path = '250930/data/tripinfo_with_coords_example.csv'
+tripinfo_csv_path = '250930/data/tripinfo_BRT.csv'
+edge_xml_path = '250724/data/edge_BRT.edg.xml'
+output_csv_path = '250930/data/tripinfo_with_coords_BRT.csv'
 
 # 2. Edge XMLから座標辞書を作成
 start_coords_dict, end_coords_dict = parse_edge_xml_to_coords(edge_xml_path)

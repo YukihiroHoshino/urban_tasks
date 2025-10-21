@@ -26,9 +26,9 @@ def parse_tripinfo(xml_file, columns_to_extract):
 # --- メイン処理 ---
 
 # 1. ファイルパスの設定
-file_step1 = '250930/data/tripinfo_sunday_step1.xml'
-file_step4 = '250930/data/tripinfo_sunday_step4.xml'
-output_csv = '250930/data/tripinfo_4.csv'
+file_step1 = '250930/data/tripinfo_0611.xml'
+file_step4 = '250930/data/tripinfo_0916_backbrtuser_laketown.xml'
+output_csv = '250930/data/tripinfo_BRT.csv'
 
 # 2. 抽出するカラムの定義
 # step1からは静的な情報（vTypeなど）も抽出

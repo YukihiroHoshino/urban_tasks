@@ -70,21 +70,21 @@ def generate_qk_plot_image(df_grouped, xlim_max, ylim_max):
 
     # プロット作成
     fig, ax = plt.subplots(figsize=(6, 5))
-    cmap = plt.colormaps['plasma']
-    norm = mcolors.Normalize(vmin=0, vmax=23)
+    cmap = plt.colormaps['hsv']
     
     scatter = ax.scatter(
         df_grouped["k"],
         df_grouped["flow_ma"],
         c=df_grouped["hour"],
         cmap=cmap,
-        norm=norm,
         s=15,
-        alpha=0.8
+        alpha=0.8,
+        vmin=0,
+        vmax=24
     )
     
-    ax.set_xlabel("密度 K [台/km]")
-    ax.set_ylabel("交通量 Q [台/h]")
+    ax.set_xlabel("密度 K [台/km]", fontsize=15)
+    ax.set_ylabel("交通量 Q [台/h]", fontsize=15)
     # 共通の最大値を軸に設定
     ax.set_xlim(0, xlim_max)
     ax.set_ylim(0, ylim_max)
@@ -145,12 +145,17 @@ def process_output_to_dataframes(output_xml_path):
         
         # QKプロットに必要な列を計算
         df_grouped["k"] = df_grouped["flow"] / df_grouped["vel"].replace(0, np.nan)
-        df_grouped = df_grouped[df_grouped["k"] > 0.01].copy()
-        if df_grouped.empty: continue
-        
         df_grouped["hour"] = df_grouped["begin"] // 3600
-        df_grouped["flow_ma"] = df_grouped["flow"].rolling(window=5, min_periods=1).mean()
+
+        # 無効値除外
+        df_grouped = df_grouped[
+            (df_grouped["k"] > 0.01) & 
+            (df_grouped["hour"] >= 0) & 
+            (df_grouped["hour"] < 24)
+        ].copy()
         
+        if df_grouped.empty: continue
+        df_grouped["flow_ma"] = df_grouped["flow"].rolling(window=5, min_periods=1).mean()
         dataframes[prefix] = df_grouped
         
     return dataframes
@@ -163,22 +168,22 @@ files = {
     'step1': {
         'detector': '251001/data/detector_step1.add.xml',
         'edge': '250724/data/edge_step1.edg.xml',
-        'out': '251001/data/out_1.xml'
+        'out': '251001/data/out_sunday_step1.xml'
     },
     'step2': {
         'detector': '251001/data/detector_IC.add.xml',
         'edge': '250724/data/edge_IC.edg.xml',
-        'out': '251001/data/out_2.xml'
+        'out': '251001/data/out_sunday_step2.xml'
     },
     'step3': {
         'detector': '251001/data/detector_IC.add.xml',
         'edge': '250724/data/edge_IC.edg.xml',
-        'out': '251001/data/out_3.xml'
+        'out': '251001/data/out_sunday_step3.xml'
     },
     'step4': {
         'detector': '251001/data/detector_IC.add.xml',
         'edge': '250724/data/edge_IC.edg.xml',
-        'out': '251001/data/out_4.xml'
+        'out': '251001/data/out_sunday_step4.xml'
     }
 }
 
@@ -280,6 +285,6 @@ else:
             fill_opacity=0.7
         ).add_to(m)
 
-    output_filename = "251001/data/qk_simulation_map_scaled.html"
+    output_filename = "251001/data/qk_map_scaled_sunday.html"
     m.save(output_filename)
     print(f"\n処理が完了しました。'{output_filename}' をブラウザで開いてください。")
