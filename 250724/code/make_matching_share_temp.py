@@ -199,7 +199,7 @@ class ETCDataProcessor:
 
         updated_destinations = []
         for index, row in self.trips_df.iterrows():
-            car_type_ = row['自動車の用途']
+            car_type_ = 1
             to_ = row['junction_id_destination'] # 現在のマッチング結果を取得
 
             if car_type_ != 2: # トラック以外の場合
@@ -226,7 +226,7 @@ class ETCDataProcessor:
         # tripinfoとETC2.0の比較のためidを振り直すß
         rou_id = []
         for i in range(len(self.trips_df)):
-            rou_id.append(str(self.trips_df['運行日'].iloc[i]) + '_' + str(self.trips_df['運行ID1'].iloc[i]) + '_' + str(self.trips_df['トリップ番号'].iloc[i]))
+            rou_id.append(str(self.trips_df['運行日'].iloc[i]) + '_' + str(self.trips_df['トリップ番号'].iloc[i]))
         self.trips_df['rou_id'] = rou_id
 
         # CSVファイルに保存
@@ -251,7 +251,7 @@ class ETCDataProcessor:
             to_ = self.trips_df['junction_id_destination'].iloc[i]
             depart_at_raw_ = str(self.trips_df['トリップの起点時刻'].values[i])
             depart_at_ = int(depart_at_raw_[8:10])*3600 + int(depart_at_raw_[10:12])*60 + int(depart_at_raw_[12:14])
-            car_type_ = self.trips_df['自動車の用途'].iloc[i]
+            car_type_ = 1
 
             trips_temp.append([id_, from_, to_, depart_at_, car_type_])
 

@@ -45,16 +45,14 @@ class ETCDataProcessor:
                         def get_first_last(group):
                             return group.iloc[[0, -1]]
                         
-                        grouped = df.groupby(["運行日", "運行ＩＤ1", "トリップ番号", "自動車の用途"])
+                        grouped = df.groupby(["運行日", "運行ＩＤ1", "トリップ番号"])
                         first_last = grouped.apply(get_first_last).reset_index(drop=True)
                         
                         df_date_list.append(first_last)
-                else:
-                    print(f"File not found: {filename}")
                 
         self.df_date = pd.concat(df_date_list)
         self.df_date = self.df_date.reset_index(drop=True)
-        grouped = self.df_date.groupby(["運行日", '運行ＩＤ1', 'トリップ番号', '自動車の用途'])
+        grouped = self.df_date.groupby(["運行日", '運行ＩＤ1', 'トリップ番号'])
         del self.df_date
         rows = []
 
@@ -65,9 +63,8 @@ class ETCDataProcessor:
         
             new_row = {
                 "運行日": name[0],
-                '運行ID1': name[1],
+                '運行ＩＤ1': name[1],
                 'トリップ番号': name[2],
-                '自動車の用途': name[3],
                 'トリップの起点時刻': first_row['GPS時刻'],
                 '起点の道路種別コード': first_row['道路種別コード'],
                 '経度_origin': first_row['経度'],
@@ -81,23 +78,13 @@ class ETCDataProcessor:
         self.df_date = pd.DataFrame(rows)
 
 
-    def save_result(self, filename="250724/data/sunday_trips_try1_new.csv"):
+    def save_result(self, filename="250724/data/sunday_trips_try1_old.csv"):
         self.df_date.to_csv(filename, index=False)
 
     def get_result(self):
         return self.df_date
 
 # 使用例
-'''
-areas = [543914,543915,543916,543904,543905,543906,533974,533975,533976,533964,533965,533966,
-         533967,533954,533955,533956,533957,533944,533945,533946,533947,543917,544010,543907,
-         544000,533977,534070,534060,534050,534040]
-dates = [20211002,20211009,20211016,20211023,20211030,20211106,20211113,20211120,20211127]
-south = 35.7337
-north = 36.1113
-east = 140.0104
-west = 139.5758
-'''
 areas = [543907, 533977, 533967, 533957, 543906, 533976, 533966, 533956, 543905, 533975, 533965, 533955]
 dates = [20211003, 20211010, 20211017, 20211024, 20211031, 20211107, 20211114, 20211121, 20211128]
 south = 35.8

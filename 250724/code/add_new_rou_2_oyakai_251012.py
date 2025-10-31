@@ -6,7 +6,7 @@ import numpy as np
 
 # --- 入力ファイル ---
 # 1. ベースとなる交通流のルートファイル
-BASE_ROU_FILE = '250724/data/sunday_BRT_dropped.rou.xml'
+BASE_ROU_FILE = '250724/data/thursday_BRT_dropped.rou.xml'
 
 # 2. サンプリング対象となる、Junction指定のトリップ定義プール
 ADDITIONAL_TRIP_POOL_FILE = '250724/data/oyakai_additional_trips_pool.rou.xml'
@@ -18,18 +18,18 @@ VALIDATED_OUTPUT_FILE = '250724/data/oyakai_additional_out_nodes.xml'
 JUNCTION_SOURCE_EDGE_FILE = '250724/data/edge_BRT.edg.xml'
 
 # --- 出力ファイル ---
-FINAL_ROU_FILE_PATH = '250724/data/sunday_BRT_oyakai_added.rou.xml'
+FINAL_ROU_FILE_PATH = '250724/data/thursday_BRT_oyakai_added.rou.xml'
 
 # --- サンプリング定義 (Junction ID基準) ---
 TRIP_LIST = [
-    ("309574569", 10000, 'to'),
-    ("309574569", 10000, 'from'),
-    ("3909015091", 20000, 'to'),
-    ("3909015091", 20000, 'from'),
-    ("6313710997", 1670, 'to'),
-    ("6313710997", 1670, 'from'),
-    ("J287", 2500, 'to'),
-    ("J287", 2500, 'from'),
+    ("309574569", 5000, 'to'),
+    ("309574569", 5000, 'from'),
+    ("3909015091", 10000, 'to'),
+    ("3909015091", 10000, 'from'),
+    ("6313710997", 835, 'to'),
+    ("6313710997", 835, 'from'),
+    ("J287", 1250, 'to'),
+    ("J287", 1250, 'from'),
 ]
 
 np.random.seed(0) # 乱数のシードを固定
@@ -145,14 +145,6 @@ if not final_sampled_df.empty:
     final_sampled_df = final_sampled_df.merge(df_coords, left_on='toJunction', right_index=True, how='left').rename(columns={'lat': 'lat_dest', 'lon': 'lon_dest'})
     final_sampled_df.fillna(0, inplace=True) # 座標が見つからない場合は0で埋める
 
-    # 集約ロジックを適用する関数
-    def aggregate_destination(row):
-        if (35.869278 < row['lat_dest'] < 35.887212) and (139.816485 < row['lon_dest'] < 139.832880):
-            return "1810854435" if row['lat_origin'] > 35.8837 else "1388616614"
-        return row['toJunction'] # 条件外なら元の目的地を維持
-
-    final_sampled_df['toJunction'] = final_sampled_df.apply(aggregate_destination, axis=1)
-
 # --- 5. personTrip形式のXML要素に変換 & 出発時刻をランダム化 ---
 additional_elements = []
 if not final_sampled_df.empty:
@@ -173,8 +165,19 @@ base_elements = get_traffic_elements_from_file(BASE_ROU_FILE)
 # --- 7. 全ての交通流を結合して出力 ---
 print("最終的なルートファイルを生成しています...")
 rou_root = ET.Element('routes')
-vtype_default = ET.SubElement(rou_root, 'vType'); vtype_default.set('id', 'DEFAULT_VEHTYPE')
 vtype_truck = ET.SubElement(rou_root, 'vType'); vtype_truck.set('id', 'truck'); vtype_truck.set('vClass', 'truck')
+vtype_BUS = ET.SubElement(rou_root, 'vType')
+vtype_BUS.set('id', 'BUS')
+vtype_BUS.set('vClass', 'bus')
+vtype_BUS.set('length', '12')
+vtype_BUS.set('width', '2.5')
+vtype_BUS.set('maxSpeed', '27')
+vtype_BUS.set('accel', '2.0')
+vtype_BUS.set('decel', '4.0')
+vtype_BUS.set('sigma', '0.5')
+vtype_BUS.set('color', '1,1,0')
+vtype_BUS.set('personCapacity', '40')
+
 all_elements = base_elements + additional_elements
 sortable = [el for el in all_elements if 'depart' in el.attrib]
 non_sortable = [el for el in all_elements if 'depart' not in el.attrib]
