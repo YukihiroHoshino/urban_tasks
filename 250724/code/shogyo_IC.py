@@ -4,10 +4,10 @@ import sys
 # --- 設定項目 ---
 # 入力ファイルのパス
 net_file = '250724/data/master_forResearch_fixed_bukai_step1_truck_jp_parking.net.xml'
-input_rou_file = '250724/data/sunday_IC_dropped.rou.xml'
+input_rou_file = '250724/data/try_dropped.rou.xml'
 
 # 出力ファイルのパス
-output_rou_file = '250724/data/sunday_IC_shogyo.rou.xml'
+output_rou_file = '250724/data/try_shogyo.rou.xml'
 
 # --- ここからコード ---
 
@@ -72,8 +72,8 @@ def process_rou_file(input_path, output_path, junction_coords):
             lon_dest = junction_coords[to_junction_id]['lon']
             
             # 目的地の座標が指定範囲内にあるかチェック
-            if (35.868278 < lat_dest < 35.888212) and \
-               (139.814485 < lon_dest < 139.834880):
+            if (35.871099 < lat_dest < 35.890007) and \
+                (139.810378 < lon_dest < 139.830920):
                 
                 # このトリップは置き換え対象なので、削除リストに追加
                 trips_to_remove.append(trip)
