@@ -6,11 +6,11 @@ import numpy as np
 np.random.seed(0) 
 
 # --- 入力ファイル ---
-df = pandas.read_csv('250724/data/thursday_IC_matched.csv')
-tree = ET.parse('250724/data/thursday_IC_out_nodes.xml')
+df = pandas.read_csv('250724/data/thursday_step1_matched.csv')
+tree = ET.parse('250724/data/thursday_step1_out_nodes.xml')
 
 # --- 出力ファイル ---
-rou_file_path = '250724/data/thursday_IC_dropped.rou.xml'
+rou_file_path = '250724/data/thursday_step1_dropped.rou.xml'
 
 # ETC2.0の普及率を書き換え
 ADAPT_RATE_TRUCK = 0.80
