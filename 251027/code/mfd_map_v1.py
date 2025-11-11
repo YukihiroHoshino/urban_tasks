@@ -22,8 +22,8 @@ FILE_PATHS = {
 OUTPUT_HTML = '251027/fig/mfd_comparison_map_v2.html'
 
 # MFD計算設定
-MESH_ROWS = 10
-MESH_COLS = 10
+MESH_ROWS = 30
+MESH_COLS = 24
 TIME_INTERVAL = 300  # 5分 (秒)
 
 # グラフの時間範囲設定 (秒)

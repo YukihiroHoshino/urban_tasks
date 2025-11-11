@@ -220,9 +220,13 @@ for edge_id, data in tqdm(edge_map_data.items(), desc="共通スケールでプ�
             max_flow = max(max_flow, df['flow_ma'].max())
     
     # 軸に見やすさのためのマージンを追加
-    plot_xlim = max_k * 1.05
-    plot_ylim = max_flow * 1.05
-    
+    # plot_xlim = max_k * 1.05
+    # plot_ylim = max_flow * 1.05
+
+    plot_xlim = 40
+    plot_ylim = 610
+
+
     # プロットを格納する新しい辞書を作成
     data['plots'] = {}
     
@@ -285,6 +289,6 @@ else:
             fill_opacity=0.7
         ).add_to(m)
 
-    output_filename = "251001/data/qk_map_scaled_sunday.html"
+    output_filename = "251001/data/qk_map_scaled_sunday1104.html"
     m.save(output_filename)
     print(f"\n処理が完了しました。'{output_filename}' をブラウザで開いてください。")
