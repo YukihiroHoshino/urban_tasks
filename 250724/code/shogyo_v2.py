@@ -274,12 +274,12 @@ def process_rou_file(input_path, output_path, node_coords, shogyo_targets):
 if __name__ == '__main__':
     # --- 設定項目 ---
     # 入力ファイルのパス
-    nod_file = '250724/data/node_IC_shogyo.nod.xml'
-    input_rou_file = '250724/data/sunday_IC_dropped.rou.xml'
+    nod_file = '250724/data/node_step1_shogyo.nod.xml'
+    input_rou_file = '250724/data/thursday_step1_dropped.rou.xml'
     shogyo_csv_file = '250724/data/shogyo.csv' # 添付されたCSVファイル
     
     # 出力ファイルのパス
-    output_rou_file = '250724/data/sunday_IC_shogyo.rou.xml'
+    output_rou_file = '250724/data/thursday_step1_shogyo.rou.xml'
 
     # 1. nodファイルからノードの座標を読み込む
     node_coordinates = parse_nod_file(nod_file)

@@ -111,7 +111,6 @@ bus_flow.set('from', '128185375')
 bus_flow.set('to', '128185375')
 bus_flow.set('via', '447675894#1 447675894#1.32 -E19 -E18 -E17 -E16 -E16.17 -E15 -E14 E12 E12.154 E12.164 E13 1231325642#0 1231325642#0.343 1231325642#1 1231325642#2 1231325646#0 1231325646#0.55 1231325646#1 1231325646#2 1231325647 1185697574#0 1185697574#1 1185697574#2 1185697574#3 951329849#1 951329849#2 951329849#3 951328429#0 951328429#1 169920326#0 169920326#1 169920326#2 169920326#3 169920326#4 1231325655#0 1231325655#0.62 1231325655#0.62.56 1231325655#1 1231325655#2 1231325664#0 E51 E70 E70.449 28184296#9 28184616 28111409 28184603#1 -E70.140.315 41247903#4 1231325662#1.41 1231325661#1 951329843 951329843.64 1231325643#1 1231325643#2 447675894#1 447675894#1.32 -E19 -E18 -E17 -E16 -E16.17 -E15 -E14 E12 E12.154 E12.164')
 bus_flow.set('period', '300.00')
-bus_flow.set('period', '300.00')
 bus_flow.set('arrivalLane', '2')
 bus_flow.set('departLaneChangeProhibited', 'true')
 bus_flow.set('arrivalLaneChangeProhibited', 'true')
@@ -172,6 +171,28 @@ stop.set('until', '1')
 stop = ET.SubElement(bus_flow, 'stop')
 stop.set('busStop', 'bs_smartic3')
 stop.set('until', '1')
+
+    <flow id="busflow_1" type="BUS" begin="0" end="86399" line="line" from="128185375" to="128185375" via="447675894#1 447675894#1.32 -E19 -E18 -E17 -E16 -E16.17 -E15 -E14 E12 E12.154 E12.164 E13 1231325642#0 1231325642#0.343 1231325642#1 1231325642#2 1231325646#0 1231325646#0.55 1231325646#1 1231325646#2 1231325647 1185697574#0 1185697574#1 1185697574#2 1185697574#3 951329849#1 951329849#2 951329849#3 951328429#0 951328429#1 169920326#0 169920326#1 169920326#2 169920326#3 169920326#4 1231325655#0 1231325655#0.62 1231325655#0.62.56 1231325655#1 1231325655#2 1231325664#0 E51 E70 E70.449 28184296#9 28184616 28111409 28184603#1 -E70.140.315 41247903#4 1231325662#1.41 1231325661#1 951329843 951329843.64 1231325643#1 1231325643#2 447675894#1 447675894#1.32 -E19 -E18 -E17 -E16 -E16.17 -E15 -E14 E12 E12.154 E12.164" period="300.00" arrivalLane="2" departLaneChangeProhibited="true" arrivalLaneChangeProhibited="true">
+        <!-- <stop busStop="bs_smartic" until="1"/> -->
+        <stop busStop="bs_smartic3" until="1"/>
+        <stop busStop="bs_sokaparkd" until="1"/>
+        <stop busStop="bs_laketownd" until="1"/>
+        <stop busStop="bs_laketown2d" until="1"/>
+        <stop busStop="bs_laketown3d" until="1"/>
+        <stop busStop="bs_ichigoparkd" until="1"/>
+        <stop busStop="bs_techpoliced" until="1"/>
+        <stop busStop="bs_toyonod" until="1"/>
+        <stop busStop="bs_kasukabeaeond" until="1"/>
+        <stop busStop="bs_kasukabeaeonu" until="1"/>
+        <stop busStop="bs_toyonou" until="1"/>
+        <stop busStop="bs_techpoliceu" until="1"/>
+        <stop busStop="bs_ichigoparku" until="1"/>
+        <stop busStop="bs_laketown3u" until="1"/>
+        <stop busStop="bs_laketown2u" until="1"/>
+        <stop busStop="bs_laketownu" until="1"/>
+        <stop busStop="bs_sokaparku" until="1"/>
+        <stop busStop="bs_smartic3" until="1"/>
+    </flow>
 
 # 出力トリップ生成
 trips_temp = []
