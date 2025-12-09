@@ -9,13 +9,13 @@ import copy
 # =============================================================================
 
 # ベースとなる交通流のルートファイル
-BASE_ROU_FILE = '250724/data/thursday_BRT_dropped.rou.xml'
+BASE_ROU_FILE = '250724/data/sunday_IC_dropped.rou.xml'
 # サンプリング対象となる、Junction指定のトリップ定義プール
 ADDITIONAL_TRIP_POOL_FILE = '250724/data/yashio_additional_trips_pool_IC.rou.xml'
 # duarouterで経路計算が成功したトリップのIDリストを取得するためのファイル
 VALIDATED_OUTPUT_FILE = '250724/data/yashio_additional_out_nodes.xml'
 # 出力ファイルのベースパス
-FINAL_ROU_FILE_PATH = '250724/data/thursday_yashio_added.rou.xml'
+FINAL_ROU_FILE_PATH = '250724/data/sunday_yashio_added.rou.xml'
 
 # --- シナリオごとの追加トリップ定義 ---
 # add_rou_list_1: [from_junction, to_junction, sample_count]
@@ -39,13 +39,7 @@ add_rou_list_2_3_2 = [["pa_3_east", 6000]]
 
 # --- シナリオマップ ---
 scenario_map = {
-    1: {"truck": add_rou_list_1},
-    2: {"truck": add_rou_list_1, "normal": add_rou_list_2_1_1},
-    3: {"truck": add_rou_list_1, "normal": add_rou_list_2_1_2},
-    4: {"truck": add_rou_list_1, "normal": add_rou_list_2_2_1},
-    5: {"truck": add_rou_list_1, "normal": add_rou_list_2_2_2},
-    6: {"truck": add_rou_list_1, "normal": add_rou_list_2_3_1},
-    7: {"truck": add_rou_list_1, "normal": add_rou_list_2_3_2},
+    1: {"truck": add_rou_list_1}
 }
 
 # =============================================================================

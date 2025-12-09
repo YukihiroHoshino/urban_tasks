@@ -81,7 +81,7 @@ class ETCDataProcessor:
         self.df_date = pd.DataFrame(rows)
 
 
-    def save_result(self, filename="250724/data/sunday_trips_try1_new.csv"):
+    def save_result(self, filename="250724/data/sunday_trips_try2_new.csv"):
         self.df_date.to_csv(filename, index=False)
 
     def get_result(self):
@@ -97,13 +97,21 @@ south = 35.7337
 north = 36.1113
 east = 140.0104
 west = 139.5758
-'''
+
 areas = [543907, 533977, 533967, 533957, 543906, 533976, 533966, 533956, 543905, 533975, 533965, 533955]
 dates = [20211003, 20211010, 20211017, 20211024, 20211031, 20211107, 20211114, 20211121, 20211128]
 south = 35.8
 north = 36.0
 east = 139.9
 west = 139.7
+'''
+
+areas = [543907, 533977, 533967, 533957, 543906, 533976, 533966, 533956, 543905, 533975, 533965, 533955]
+dates = [20211003, 20211010, 20211017, 20211024, 20211031, 20211107, 20211114, 20211121, 20211128]
+south = 35.7337
+north = 36.1113
+east = 140.0104
+west = 139.5758
 
 processor = ETCDataProcessor(areas, dates, south, north, east, west)
 processor.process_data()

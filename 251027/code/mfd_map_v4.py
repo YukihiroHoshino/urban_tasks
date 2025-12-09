@@ -14,17 +14,19 @@ from collections import defaultdict
 import japanize_matplotlib
 
 # --- 1. 設定項目 ---
+# 【修正】netファイルへのパスをステップごとに設定
 FILE_PATHS = {
-    'net': '251027/data/master_forResearch_fixed_bukai_step4_truck_jp_parking.net.xml',
+    'net_step1': '251027/data/master_forResearch_fixed_bukai_step1_truck_jp_parking.net.xml',
+    'net_step4': '251027/data/master_forResearch_fixed_bukai_step4_truck_jp_parking.net.xml',
     'step1_fcd': '251027/data/sunday_step1_fcd.xml',
     'step4_fcd': '251027/data/sunday_step4_fcd.xml'
 }
-OUTPUT_HTML = '251027/fig/mfd_comparison_map_1by1.html'
+OUTPUT_HTML = '251027/fig/mfd_comparison_map_1by1_density_per_km.html'
 
 # MFD計算設定
 MESH_ROWS = 1
 MESH_COLS = 1
-TIME_INTERVAL = 300  # 5分 (秒)
+TIME_INTERVAL = 1500  # 5分 (秒)
 
 # グラフの時間範囲設定 (秒)
 TIME_RANGE_MIN = 6 * 3600   # 6時
@@ -50,16 +52,15 @@ def get_net_info(net_file):
     }
 
 def create_meshes(bounds, rows, cols):
-    """【修正点3】メッシュにインデックス情報を追加"""
+    """メッシュを作成し、インデックス情報を追加する"""
     min_x, min_y, max_x, max_y = bounds
     mesh_width = (max_x - min_x) / cols
     mesh_height = (max_y - min_y) / rows
     
     meshes = []
-    # 緯度は南から北へ（i=0が南）、経度は西から東へ（j=0が西）と仮定
     for i in range(rows):
         for j in range(cols):
-            mesh_name = f"mesh_{rows-i}_{j+1}" # 左上を(1,1)とするための命名規則
+            mesh_name = f"mesh_{rows-i}_{j+1}"
             m_min_y = min_y + i * mesh_height
             m_max_y = min_y + (i + 1) * mesh_height
             m_min_x = min_x + j * mesh_width
@@ -67,9 +68,8 @@ def create_meshes(bounds, rows, cols):
             meshes.append({
                 'name': mesh_name,
                 'bounds': (m_min_x, m_min_y, m_max_x, m_max_y),
-                'area_km2': (mesh_width * mesh_height) / 1e6,
-                'row': rows - 1 - i,  # 地図描画用のインデックス (北から0)
-                'col': j            # 地図描画用のインデックス (西から0)
+                'row': rows - 1 - i,
+                'col': j
             })
     print(f"{rows}x{cols} のメッシュを作成しました。")
     return meshes
@@ -81,6 +81,43 @@ def get_mesh_for_coord(x, y, meshes):
         if min_x <= x < max_x and min_y <= y < max_y:
             return mesh['name']
     return None
+
+# 【新規追加】メッシュごとの道路総延長を計算する関数
+def calculate_total_edge_lengths(net_file, meshes):
+    """netファイルからメッシュごとの道路総延長[km]を計算する"""
+    print(f"'{net_file}' から道路延長を計算中...")
+    tree = ET.parse(net_file)
+    root = tree.getroot()
+    
+    mesh_lengths = defaultdict(float)
+    
+    for edge in root.findall('edge'):
+        # 'shape'属性を持つedgeのみを対象とする
+        if 'shape' in edge.attrib:
+            shape_str = edge.attrib['shape']
+            points = [tuple(map(float, p.split(','))) for p in shape_str.split(' ')]
+            
+            # edgeを構成する線分セグメントごとに処理
+            for i in range(len(points) - 1):
+                p1 = points[i]
+                p2 = points[i+1]
+                
+                # セグメントの中点座標
+                mid_x = (p1[0] + p2[0]) / 2
+                mid_y = (p1[1] + p2[1]) / 2
+                
+                # セグメントの長さ（メートル）
+                length_m = np.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
+                
+                # 中点が属するメッシュを特定し、長さを加算
+                mesh_name = get_mesh_for_coord(mid_x, mid_y, meshes)
+                if mesh_name:
+                    mesh_lengths[mesh_name] += length_m
+                    
+    # 単位をメートルからキロメートルに変換
+    mesh_lengths_km = {name: length / 1000.0 for name, length in mesh_lengths.items()}
+    print("道路延長の計算が完了しました。")
+    return mesh_lengths_km
 
 def process_fcd_file(fcd_file, meshes):
     """FCDファイルを解析し、メッシュ・時間帯ごとの車両データを集計する"""
@@ -111,14 +148,16 @@ def process_fcd_file(fcd_file, meshes):
             raise e
     return data
 
-def calculate_mfd(processed_data, meshes):
-    """【修正点2】時間範囲外のデータを除外してMFDを計算"""
+# 【修正】道路延長を用いてMFDを計算するように変更
+def calculate_mfd(processed_data, mesh_edge_lengths):
+    """道路延長[km]を用いてMFDを計算する"""
     mfd_results = defaultdict(lambda: {'K': [], 'Q': [], 'time': []})
-    mesh_info = {m['name']: m['area_km2'] for m in meshes}
 
     for mesh_name, time_slots in processed_data.items():
-        area_km2 = mesh_info.get(mesh_name, 0)
-        if area_km2 == 0: continue
+        total_length_km = mesh_edge_lengths.get(mesh_name, 0)
+        # メッシュ内に道路が存在しない場合はスキップ
+        if total_length_km == 0:
+            continue
 
         for time_slot, values in time_slots.items():
             # 指定時間範囲外のデータはスキップ
@@ -126,41 +165,43 @@ def calculate_mfd(processed_data, meshes):
                 continue
 
             counts = values['vehicle_counts_per_ts'].values()
-            if not counts: continue
+            if not counts:
+                continue
+            
             avg_vehicle_count = sum(counts) / len(counts)
-            density_k = avg_vehicle_count #/ area_km2
+            
+            # 密度 (K) [vh/km] = 平均車両数 / 道路総延長[km]
+            density_k = avg_vehicle_count / total_length_km
 
             all_speeds = values['speeds']
             speed_v_ms = np.average(all_speeds) if all_speeds else 0
             speed_v_kmh = speed_v_ms * 3.6
 
-            flow_q_veh_h_km2 = density_k * speed_v_kmh
-            flow_q_veh_min_km2 = flow_q_veh_h_km2 / 60
+            # 流量 (Q) [vh/h] = 密度[vh/km] * 速度[km/h]
+            flow_q = density_k * speed_v_kmh
 
             mfd_results[mesh_name]['K'].append(density_k)
-            mfd_results[mesh_name]['Q'].append(flow_q_veh_min_km2)
+            mfd_results[mesh_name]['Q'].append(flow_q)
             mfd_results[mesh_name]['time'].append(time_slot)
             
     return mfd_results
 
+# 【修正】グラフの軸ラベルを更新
 def create_single_plot_base64(data, title, x_max, y_max):
-    """【修正点2】カラーマップを'plasma'に変更、正規化を削除"""
+    """MFDグラフの画像をBase64形式で生成する"""
     fig, ax = plt.subplots(figsize=(5, 4.5))
     
     if data and data['K']:
         hours = [t / 3600.0 for t in data['time']]
-        
-        # カラーマップを plasma に変更, norm を削除
         scatter = ax.scatter(data['K'], data['Q'], c=hours, cmap='plasma', alpha=0.8, s=15)
-        
         cbar = fig.colorbar(scatter, ax=ax)
         cbar.set_label('Time [hour]')
         
-    ax.set_xlabel('Traffic Density (K) [vh•km/hour•mesh]')
-    ax.set_ylabel('Traffic Flow(Q) [vh/mesh]')
+    ax.set_xlabel('Traffic Density (K) [vh/km]') # 単位を [vh/km] に変更
+    ax.set_ylabel('Traffic Flow (Q) [vh/h]')    # 単位を [vh/h] に変更
     ax.set_title(title)
-    ax.set_xlim(0, x_max * 1.05 if x_max > 0 else 1) # x_maxが0の場合の対策
-    ax.set_ylim(0, y_max * 1.05 if y_max > 0 else 1) # y_maxが0の場合の対策
+    ax.set_xlim(0, x_max * 1.05 if x_max > 0 else 1)
+    ax.set_ylim(0, y_max * 1.05 if y_max > 0 else 1)
     ax.grid(True, linestyle='--', alpha=0.6)
 
     buf = io.BytesIO()
@@ -177,24 +218,29 @@ def main():
         os.makedirs(output_dir)
         print(f"出力ディレクトリ '{output_dir}' を作成しました。")
 
-    net_info = get_net_info(FILE_PATHS['net'])
-    # データ集計用のメッシュ (UTM座標系)
+    # 地図の境界情報はstep4のnetファイルから取得（どちらでも通常は同じ）
+    net_info = get_net_info(FILE_PATHS['net_step4'])
     utm_meshes = create_meshes(net_info['bounds'], MESH_ROWS, MESH_COLS)
     
-    processed_step1 = process_fcd_file(FILE_PATHS['step1_fcd'], utm_meshes)
-    mfd_step1 = calculate_mfd(processed_step1, utm_meshes)
-
-    processed_step4 = process_fcd_file(FILE_PATHS['step4_fcd'], utm_meshes)
-    mfd_step4 = calculate_mfd(processed_step4, utm_meshes)
+    # 【追加】step1とstep4それぞれの道路総延長を計算
+    edge_lengths_step1 = calculate_total_edge_lengths(FILE_PATHS['net_step1'], utm_meshes)
+    edge_lengths_step4 = calculate_total_edge_lengths(FILE_PATHS['net_step4'], utm_meshes)
     
-    # 【修正点3】地図の描画範囲とメッシュ分割を origBoundary (緯度経度) で定義
+    # FCDファイルを処理
+    processed_step1 = process_fcd_file(FILE_PATHS['step1_fcd'], utm_meshes)
+    processed_step4 = process_fcd_file(FILE_PATHS['step4_fcd'], utm_meshes)
+    
+    # 【修正】MFD計算時に、対応する道路延長データを渡す
+    mfd_step1 = calculate_mfd(processed_step1, edge_lengths_step1)
+    mfd_step4 = calculate_mfd(processed_step4, edge_lengths_step4)
+    
+    # 地図の描画範囲と中心を緯度経度で定義
     lon_min, lat_min, lon_max, lat_max = net_info['orig_bounds']
     center_lat = (lat_min + lat_max) / 2
     center_lon = (lon_min + lon_max) / 2
     
     m = folium.Map(location=[center_lat, center_lon], zoom_start=12)
     
-    # 緯度経度上でのメッシュの幅と高さを計算
     lat_step = (lat_max - lat_min) / MESH_ROWS
     lon_step = (lon_max - lon_min) / MESH_COLS
 
@@ -208,7 +254,7 @@ def main():
         if not (data1 and data1['K']) and not (data2 and data2['K']):
             continue
 
-        # 【修正点1】このメッシュ専用のx軸・y軸の最大値を計算
+        # このメッシュ専用のx軸・y軸の最大値を計算
         local_max_k = 0
         local_max_q = 0
         if data1 and data1['K']:
@@ -230,7 +276,7 @@ def main():
         </div>'''
         popup = folium.Popup(html, max_width=700)
         
-        # 【修正点3】緯度経度 (origBoundary) ベースでポリゴンの頂点を計算
+        # 緯度経度ベースでポリゴンの頂点を計算
         i, j = mesh['row'], mesh['col']
         poly_lat_min = lat_min + (MESH_ROWS - 1 - i) * lat_step
         poly_lat_max = lat_min + (MESH_ROWS - i) * lat_step
